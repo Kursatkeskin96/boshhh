@@ -23,7 +23,7 @@ export default function Form(props) {
   const handleSearchClick = async () => {
     try {
       const response = await fetch(`https://app-admin-api-boshhh-prod-001.azurewebsites.net/api/AddressLookUp/GetAddress?postCode=${postcode}`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Accept': '*/*',
           'Content-Type': 'application/json'
