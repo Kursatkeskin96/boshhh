@@ -23,7 +23,7 @@ export default function Form(props) {
   const handleSearchClick = async () => {
     try {
       const response = await fetch(`https://app-admin-api-boshhh-prod-001.azurewebsites.net/api/AddressLookUp/GetAddress?postCode=${postcode}`, {
-        method: 'GET',
+        method: 'POST',
         headers: {
           'Accept': '*/*',
           'Content-Type': 'application/json'
@@ -290,7 +290,7 @@ export default function Form(props) {
                 value={postcode}
                 onChange={(e) => setPostcode(e.target.value)}
                 placeholder="SK17 9AE"
-                className="max-w-[404px] w-[120%] md:w-[350px] lg:w-[404px] pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
+                className="max-w-[404px] w-[100%] md:w-[350px] lg:w-[404px] pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
               />
               {isDropDownOpen && (
                 <div className="border border-gray-300 rounded-md bg-white mt-1 w-full max-w-[404px]">
