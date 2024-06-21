@@ -7,12 +7,12 @@ export default function Form(props) {
   const [isPostcodeValid, setIsPostcodeValid] = useState(false);
   const [postcode, setPostcode] = useState("");
   const [addresses, setAddresses] = useState([]);
-  const [isDropDownOpen, setIsDropDownOpen] = useState(false)
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [email, setEmail] = useState("");
-  const [firstname, setFirstname] = useState('')
-  const [lastname, setLastname] = useState('')
-  const [phone, setPhone] = useState('')
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [phone, setPhone] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState({ day: "", month: "", year: "" });
   const [selectedAddress, setSelectedAddress] = useState({
     line1: "",
@@ -20,31 +20,42 @@ export default function Form(props) {
     line3: ""
   });
 
-  const handleSearchClick = () => {
-    // Simulate fetching addresses based on postcode
-    const fetchedAddresses = [
-      { line1: "48 Crowestones", line2: "Buxton", line3: "Derbyshire" },
-      { line1: "123 Main St", line2: "Manchester", line3: "Lancashire" },
-      { line1: "456 Elm St", line2: "Sheffield", line3: "Yorkshire" },
-    ];
-    setAddresses(fetchedAddresses);
-    setIsPostcodeValid(true);
-    setIsDropDownOpen(true)
+  const handleSearchClick = async () => {
+    try {
+      const response = await fetch(`https://app-admin-api-boshhh-prod-001.azurewebsites.net/api/AddressLookUp/GetAddress?postCode=${postcode}`, {
+        method: 'GET',
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch address');
+      }
+
+      const fetchedAddresses = await response.json();
+      setAddresses(fetchedAddresses);
+      setIsPostcodeValid(true);
+      setIsDropDownOpen(true);
+    } catch (error) {
+      console.error('Error fetching addresses:', error);
+    }
   };
 
   const handleAddressSelect = (address) => {
     setSelectedAddress(address);
-    setIsDropDownOpen(false)
+    setIsDropDownOpen(false);
     setIsPostcodeValid(true); // Hide dropdown after selecting an address
   };
 
   const handleFirstName = (e) => {
-    setFirstname(e.target.value)
-  }
+    setFirstname(e.target.value);
+  };
 
   const handleLastName = (e) => {
-    setLastname(e.target.value)
-  }
+    setLastname(e.target.value);
+  };
 
   const handleDayInputChange = (e) => {
     const value = e.target.value;
@@ -99,28 +110,27 @@ export default function Form(props) {
     return re.test(String(email).toLowerCase());
   };
 
-
   const handlePhoneInputChange = (e) => {
-    const value = e.target.value
-    if(value.length > 11) {
-        e.target.value = value.slice(0, 11);
+    const value = e.target.value;
+    if (value.length > 11) {
+      e.target.value = value.slice(0, 11);
     } else {
-        setPhone(e.target.value)
+      setPhone(e.target.value);
     }
   };
 
   const formattedDateOfBirth = `${dateOfBirth.day.padStart(2, '0')}/${dateOfBirth.month.padStart(2, '0')}/${dateOfBirth.year}`;
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const data = {
       title: "Mr",
-      firstName: "Do",
-      lastName: "Joen",
+      firstName: firstname,
+      lastName: lastname,
       dateOfBirth: formattedDateOfBirth,
-      telephone: "07604343321",
-      emailAddress: "usman111@gmail.com",
+      telephone: phone,
+      emailAddress: email,
       billingStreet1: selectedAddress.line1 || "390 BELLSHILL ROAD",
       billingLocality: "",
       billingCounty: selectedAddress.line3 || "LANARKSHIRE",
@@ -153,7 +163,7 @@ export default function Form(props) {
 
   return (
     <div className="flex justify-center items-center flex-col max-w-[586px] h-fit bg-gray-200 mx-auto">
-      <form className="flex flex-col justify-center items-center">
+      <form className="flex flex-col justify-center items-center" onSubmit={handleSubmit}>
         <div className="flex flex-col lg:flex-row justify-center items-center gap-4 w-full lg:max-w-[526px] mx-auto">
           <div className="flex flex-col w-full justify-center items-center">
             <div className="w-[90%] lg:w-[250px] flex flex-col items-start">
@@ -204,8 +214,8 @@ export default function Form(props) {
             <div className="relative w-[90%] lg:w-full flex justify-center">
               <CiMail className="absolute text-[#80868B] top-[50%] text-xl left-[10px] translate-y-[-50%] pointer-events-none" />
               <input
-               required
-               className={`pl-10 w-full h-[55px] rounded-[15px] border-[1px] ${isEmailValid ? 'border-[#DADCE0]' : 'border-red-500'} mx-auto`}
+                required
+                className={`pl-10 w-full h-[55px] rounded-[15px] border-[1px] ${isEmailValid ? 'border-[#DADCE0]' : 'border-red-500'} mx-auto`}
                 type="email"
                 id="contact-email"
                 onChange={handleEmailChange}
@@ -242,7 +252,7 @@ export default function Form(props) {
               required
               id="dob-day"
               onChange={handleDayInputChange}
-                max="31"
+              max="31"
               placeholder="DD"
               className="w-[32%] lg:w-[170px] pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
             />
@@ -344,7 +354,7 @@ export default function Form(props) {
         </div>
       )}
 
-        <button className="bg-[#1E1E1E] w-[90%] lg:w-[526px] h-[55px] py-15 pl-32 pr-24 mt-8 font-normal text-white rounded-[100px]">
+        <button type="submit" className="bg-[#1E1E1E] w-[90%] lg:w-[526px] h-[55px] py-15 pl-32 pr-24 mt-8 font-normal text-white rounded-[100px]">
           Place Order
         </button>
       </form>
