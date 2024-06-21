@@ -38,7 +38,7 @@ export default function Form(props) {
   
       if (Array.isArray(fetchedData.thoroughfares)) {
         const formattedAddresses = fetchedData.thoroughfares.map(thoroughfare => {
-          console.log('Thoroughfare:', thoroughfare);
+          console.log(fetchedData);
           return {
             line1: thoroughfare.name,
             line2: fetchedData.town,
