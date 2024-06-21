@@ -136,13 +136,20 @@ export default function Form(props) {
   };
 
   const handlePhoneInputChange = (e) => {
-    const value = e.target.value;
-    if (value.length > 11) {
-      e.target.value = value.slice(0, 11);
-    } else {
-      setPhone(e.target.value);
+    let value = e.target.value;
+
+    if (!/^07/.test(value) && /^\d{2}/.test(value)) {
+        value = ''; 
     }
-  };
+    if (value.length > 11) {
+        value = value.slice(0, 11);
+    }
+    e.target.value = value;
+    setPhone(value);
+};
+
+
+
 
   const handleAddressChange = (e) => {
     const { id, value } = e.target;
@@ -198,7 +205,7 @@ export default function Form(props) {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col max-w-[586px] h-fit bg-gray-200 mx-auto">
+    <div className="flex justify-center items-center flex-col max-w-[586px] h-fit mx-auto">
       <form
         className="flex flex-col justify-center items-center"
         onSubmit={handleSubmit}
