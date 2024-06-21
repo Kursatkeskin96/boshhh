@@ -35,11 +35,19 @@ export default function Form(props) {
       }
 
       const fetchedAddresses = await response.json();
-      setAddresses(fetchedAddresses);
-      setIsPostcodeValid(true);
-      setIsDropDownOpen(true);
+
+      // Ensure fetchedAddresses is an array
+      if (Array.isArray(fetchedAddresses)) {
+        setAddresses(fetchedAddresses);
+        setIsPostcodeValid(true);
+        setIsDropDownOpen(true);
+      } else {
+        console.error('Unexpected response format:', fetchedAddresses);
+        setAddresses([]);
+      }
     } catch (error) {
       console.error('Error fetching addresses:', error);
+      setAddresses([]);
     }
   };
 
