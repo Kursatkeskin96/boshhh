@@ -36,14 +36,16 @@ export default function Form(props) {
   
       const fetchedData = await response.json();
   
-      // Ensure thoroughfares is an array
       if (Array.isArray(fetchedData.thoroughfares)) {
-        const formattedAddresses = fetchedData.thoroughfares.map(thoroughfare => ({
-          line1: thoroughfare.name,
-          line2: fetchedData.town,
-          line3: fetchedData.county
-        }));
-        console.log(thoroughfare)
+        const formattedAddresses = fetchedData.thoroughfares.map(thoroughfare => {
+          console.log('Thoroughfare:', thoroughfare);
+          return {
+            line1: thoroughfare.name,
+            line2: fetchedData.town,
+            line3: fetchedData.county
+          };
+        });
+  
         setAddresses(formattedAddresses);
         setIsPostcodeValid(true);
         setIsDropDownOpen(true);
@@ -302,7 +304,8 @@ export default function Form(props) {
           </label>
           <div className="flex justify-start items-center lg:gap-4 md:gap-6 gap-12 w-[90%] lg:w-full mx-auto mt-1">
             <div className="flex flex-col w-full">
-              <input
+  <div className="flex">
+  <input
                 type="text"
                 id="postcode"
                 required
@@ -311,6 +314,14 @@ export default function Form(props) {
                 placeholder="SK17 9AE"
                 className="max-w-[404px] w-[100%] md:w-[350px] lg:w-[404px] pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
               />
+                          <button
+              type="button"
+              onClick={handleSearchClick}
+              className="w-[30%] lg:w-[112px] h-[55px] rounded-[100px] text-white bg-[#1E1E1E]"
+            >
+              Search
+            </button>
+  </div>
               {isDropDownOpen && (
                 <div className="border border-gray-300 rounded-md bg-white mt-1 w-full max-w-[404px] max-h-[250px] overflow-y-auto">
                   {addresses.map((address, index) => (
@@ -325,13 +336,6 @@ export default function Form(props) {
                 </div>
               )}
             </div>
-            <button
-              type="button"
-              onClick={handleSearchClick}
-              className="w-[30%] lg:w-[112px] h-[55px] rounded-[100px] text-white bg-[#1E1E1E]"
-            >
-              Search
-            </button>
           </div>
         </div>
       {isPostcodeValid && (
