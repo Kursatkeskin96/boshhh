@@ -308,7 +308,7 @@ export default function Form(props) {
                 className="max-w-[404px] w-[100%] md:w-[350px] lg:w-[404px] pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
               />
               {isDropDownOpen && (
-                <div className="border border-gray-300 rounded-md bg-white mt-1 w-full max-w-[404px]">
+                <div className="border border-gray-300 rounded-md bg-white mt-1 w-full max-w-[404px] max-h-[500px] overflow-y-auto">
                   {addresses.map((address, index) => (
                     <div
                       key={index}
