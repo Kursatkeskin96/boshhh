@@ -29,20 +29,25 @@ export default function Form(props) {
           'Content-Type': 'application/json'
         }
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to fetch address');
       }
-
-      const fetchedAddresses = await response.json();
-
-      // Ensure fetchedAddresses is an array
-      if (Array.isArray(fetchedAddresses)) {
-        setAddresses(fetchedAddresses);
+  
+      const fetchedData = await response.json();
+  
+      // Ensure thoroughfares is an array
+      if (Array.isArray(fetchedData.thoroughfares)) {
+        const formattedAddresses = fetchedData.thoroughfares.map(thoroughfare => ({
+          line1: thoroughfare.name,
+          line2: fetchedData.town,
+          line3: fetchedData.county
+        }));
+        setAddresses(formattedAddresses);
         setIsPostcodeValid(true);
         setIsDropDownOpen(true);
       } else {
-        console.error('Unexpected response format:', fetchedAddresses);
+        console.error('Unexpected response format:', fetchedData);
         setAddresses([]);
       }
     } catch (error) {
@@ -50,6 +55,8 @@ export default function Form(props) {
       setAddresses([]);
     }
   };
+  
+    
 
   const handleAddressSelect = (address) => {
     setSelectedAddress(address);
