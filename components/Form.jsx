@@ -43,6 +43,8 @@ export default function Form(props) {
           line2: fetchedData.town,
           line3: fetchedData.county
         }));
+        console.log(thoroughfars)
+        console.log(thoroughfare)
         setAddresses(formattedAddresses);
         setIsPostcodeValid(true);
         setIsDropDownOpen(true);
