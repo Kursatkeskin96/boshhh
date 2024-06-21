@@ -55,8 +55,6 @@ export default function Form(props) {
       setAddresses([]);
     }
   };
-  
-    
 
   const handleAddressSelect = (address) => {
     setSelectedAddress(address);
@@ -132,6 +130,11 @@ export default function Form(props) {
     } else {
       setPhone(e.target.value);
     }
+  };
+
+  const handleAddressChange = (e) => {
+    const { id, value } = e.target;
+    setSelectedAddress((prev) => ({ ...prev, [id]: value }));
   };
 
   const formattedDateOfBirth = `${dateOfBirth.day.padStart(2, '0')}/${dateOfBirth.month.padStart(2, '0')}/${dateOfBirth.year}`;
@@ -308,7 +311,7 @@ export default function Form(props) {
                 className="max-w-[404px] w-[100%] md:w-[350px] lg:w-[404px] pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
               />
               {isDropDownOpen && (
-                <div className="border border-gray-300 rounded-md bg-white mt-1 w-full max-w-[404px] max-h-[500px] overflow-y-auto">
+                <div className="border border-gray-300 rounded-md bg-white mt-1 w-full max-w-[404px] max-h-[250px] overflow-y-auto">
                   {addresses.map((address, index) => (
                     <div
                       key={index}
@@ -334,7 +337,7 @@ export default function Form(props) {
           <div className="flex flex-col w-full justify-center items-center">
           <div className="w-[90%] lg:w-[526px] flex flex-col items-start">
             <label
-              htmlFor="address-line1"
+              htmlFor="line1"
               className="text-[#5F6368] text-[15px] mb-1 font-normal"
             >
               Address Line 1
@@ -342,8 +345,9 @@ export default function Form(props) {
             <input
               type="text"
               required
-              id="address-line1"
+              id="line1"
               value={selectedAddress.line1}
+              onChange={handleAddressChange}
               placeholder="48 Crowestones"
               className="w-full pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
             />
@@ -351,8 +355,9 @@ export default function Form(props) {
           <div className="w-[90%] my-4 lg:w-[526px] flex flex-col items-start">
             <input
               type="text"
-              id="city"
+              id="line2"
               value={selectedAddress.line2}
+              onChange={handleAddressChange}
               placeholder="Buxton"
               className="w-full pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
             />
@@ -360,8 +365,9 @@ export default function Form(props) {
           <div className="w-[90%] lg:w-[526px] flex flex-col items-start">
             <input
               type="text"
-              id="county"
+              id="line3"
               value={selectedAddress.line3}
+              onChange={handleAddressChange}
               placeholder="Derbyshire"
               className="w-full pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
             />
