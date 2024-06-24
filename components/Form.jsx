@@ -21,7 +21,6 @@ export default function Form(props) {
   const [selectedAddress, setSelectedAddress] = useState({
     line1: "",
     line2: "",
-    line3: "",
   });
 
   const handleSearchClick = async () => {
@@ -49,8 +48,7 @@ export default function Form(props) {
             console.log(fetchedData);
             return {
               line1: thoroughfare.name,
-              line2: fetchedData.town,
-              line3: fetchedData.county,
+              line2: `${fetchedData.town}/${fetchedData.county}`,
             };
           }
         );
@@ -139,17 +137,14 @@ export default function Form(props) {
     let value = e.target.value;
 
     if (!/^07/.test(value) && /^\d{2}/.test(value)) {
-        value = ''; 
+      value = '';
     }
     if (value.length > 11) {
-        value = value.slice(0, 11);
+      value = value.slice(0, 11);
     }
     e.target.value = value;
     setPhone(value);
-};
-
-
-
+  };
 
   const handleAddressChange = (e) => {
     const { id, value } = e.target;
@@ -173,8 +168,8 @@ export default function Form(props) {
       emailAddress: email,
       billingStreet1: selectedAddress.line1 || "390 BELLSHILL ROAD",
       billingLocality: "",
-      billingCounty: selectedAddress.line3 || "LANARKSHIRE",
-      billingCity: selectedAddress.line2 || "MOTHERWELL",
+      billingCounty: selectedAddress.line2.split('/')[1] || "LANARKSHIRE",
+      billingCity: selectedAddress.line2.split('/')[0] || "MOTHERWELL",
       billingPostcode: postcode || "ML13SR",
       simPlanId: "acc11e05-aa1f-4281-8c11-33746feaacca",
       paymentAmount: 23.99,
@@ -350,14 +345,14 @@ export default function Form(props) {
                 </button>
               </div>
               {isDropDownOpen && (
-                <div className="border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[250px] overflow-y-auto">
+                <div className="border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[200px] overflow-y-auto">
                   {addresses.map((address, index) => (
                     <div
                       key={index}
                       onClick={() => handleAddressSelect(address)}
                       className="cursor-pointer p-2 hover:bg-gray-200"
                     >
-                      {address.line1}, {address.line2}, {address.line3}
+                      {address.line1}, {address.line2}
                     </div>
                   ))}
                 </div>
@@ -384,23 +379,13 @@ export default function Form(props) {
                 className="w-full pl-2 h-[35px] rounded-[8px] border-[1px] border-[#DADCE0]"
               />
             </div>
-            <div className="w-[90%]  lg:w-[526px] flex flex-col items-start">
+            <div className="w-[90%] lg:w-[526px] my-2 flex flex-col items-start">
               <input
                 type="text"
                 id="line2"
                 value={selectedAddress.line2}
                 onChange={handleAddressChange}
-                placeholder="Buxton"
-                className="w-full pl-2 h-[35px] rounded-[8px] border-[1px] border-[#DADCE0]"
-              />
-            </div>
-            <div className="w-[90%] lg:w-[526px] flex flex-col items-start">
-              <input
-                type="text"
-                id="line3"
-                value={selectedAddress.line3}
-                onChange={handleAddressChange}
-                placeholder="Derbyshire"
+                placeholder="Buxton/Derbyshire"
                 className="w-full pl-2 h-[35px] rounded-[8px] border-[1px] border-[#DADCE0]"
               />
             </div>
