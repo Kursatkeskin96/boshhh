@@ -48,7 +48,7 @@ export default function Form(props) {
             console.log(fetchedData);
             return {
               line1: thoroughfare.name,
-              line2: `${fetchedData.town}/${fetchedData.county}`,
+              line2: `${fetchedData.town} - ${fetchedData.county}`,
             };
           }
         );
@@ -168,8 +168,8 @@ export default function Form(props) {
       emailAddress: email,
       billingStreet1: selectedAddress.line1 || "390 BELLSHILL ROAD",
       billingLocality: "",
-      billingCounty: selectedAddress.line2.split('/')[1] || "LANARKSHIRE",
-      billingCity: selectedAddress.line2.split('/')[0] || "MOTHERWELL",
+      billingCounty: selectedAddress.line2.split(' - ')[1] || "LANARKSHIRE",
+      billingCity: selectedAddress.line2.split(' - ')[0] || "MOTHERWELL",
       billingPostcode: postcode || "ML13SR",
       simPlanId: "acc11e05-aa1f-4281-8c11-33746feaacca",
       paymentAmount: 23.99,
@@ -346,7 +346,7 @@ export default function Form(props) {
                 </button>
               </div>
               {isDropDownOpen && (
-                <div className="border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[200px] overflow-y-auto">
+                <div className="border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[100px] overflow-y-auto">
                   {addresses.map((address, index) => (
                     <div
                       key={index}
