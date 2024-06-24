@@ -432,7 +432,7 @@ export default function Form(props) {
               {isDropDownOpen && (
                 <div
                   ref={dropdownRef}
-                  className="border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[130px] overflow-y-auto"
+                  className="absolute z-10 border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[170px] overflow-y-auto"
                 >
                   {addresses.map((address, index) => (
                     <div
@@ -448,7 +448,7 @@ export default function Form(props) {
             </div>
           </div>
         </div>
-        {isPostcodeValid && !isDropDownOpen && (
+        {isPostcodeValid && (
           <div className="flex flex-col w-full justify-center items-center">
             <div className="w-[90%] lg:w-[526px] flex flex-col items-start">
               <label
@@ -480,14 +480,12 @@ export default function Form(props) {
           </div>
         )}
 
-        <Link className="bg-[#1E1E1E] flex justify-center items-center   w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]" href={`https://boshhh.com/checkout?${queryString}`}>
-          <button
-            type="submit"
-            className="w-full"
-          >
-            place order
-          </button>
-        </Link>
+        <button
+          type="submit"
+          className="bg-[#1E1E1E] w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]"
+        >
+          place order
+        </button>
       </form>
     </div>
   );
