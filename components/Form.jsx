@@ -225,7 +225,7 @@ export default function Form(props) {
                 onChange={handleFirstName}
                 required
                 placeholder="David"
-                className="w-full pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
+                className="w-full pl-2 h-[35px] rounded-[15px] border-[1px] border-[#DADCE0]"
               />
             </div>
           </div>
@@ -243,7 +243,7 @@ export default function Form(props) {
                 onChange={handleLastName}
                 required
                 placeholder="Smith"
-                className="w-full pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
+                className="w-full pl-2 h-[35px] rounded-[15px] border-[1px] border-[#DADCE0]"
               />
             </div>
           </div>
@@ -261,7 +261,7 @@ export default function Form(props) {
               <CiMail className="absolute text-[#80868B] top-[50%] text-xl left-[10px] translate-y-[-50%] pointer-events-none" />
               <input
                 required
-                className={`pl-10 w-full h-[55px] rounded-[15px] border-[1px] ${
+                className={`pl-10 w-full h-[35px] rounded-[15px] border-[1px] ${
                   isEmailValid ? "border-[#DADCE0]" : "border-red-500"
                 } mx-auto`}
                 type="email"
@@ -275,7 +275,7 @@ export default function Form(props) {
             <div className="relative w-[90%] lg:w-full flex justify-center mt-4">
               <MdLocalPhone className="absolute text-[#80868B] top-[50%] text-xl left-[10px] translate-y-[-50%] pointer-events-none" />
               <input
-                className="pl-10 w-full h-[55px] rounded-[15px] border-[1px] border-[#DADCE0] mx-auto"
+                className="pl-10 w-full h-[35px] rounded-[15px] border-[1px] border-[#DADCE0] mx-auto"
                 type="number"
                 required
                 id="contact-phone"
@@ -302,7 +302,7 @@ export default function Form(props) {
               onChange={handleDayInputChange}
               max="31"
               placeholder="DD"
-              className="w-[32%] lg:w-[170px] pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
+              className="w-[32%] lg:w-[170px] pl-2 h-[35px] rounded-[15px] border-[1px] border-[#DADCE0]"
             />
             <input
               type="number"
@@ -310,7 +310,7 @@ export default function Form(props) {
               required
               onChange={handleMonthInputChange}
               placeholder="MM"
-              className="w-[32%] lg:w-[170px] pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
+              className="w-[32%] lg:w-[170px] pl-2 h-[35px] rounded-[15px] border-[1px] border-[#DADCE0]"
             />
             <input
               type="number"
@@ -318,7 +318,7 @@ export default function Form(props) {
               id="dob-year"
               onChange={handleYearInputChange}
               placeholder="YYYY"
-              className="w-[32%] lg:w-[170px] pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
+              className="w-[32%] lg:w-[170px] pl-2 h-[35px] rounded-[15px] border-[1px] border-[#DADCE0]"
             />
           </div>
         </div>
@@ -339,12 +339,12 @@ export default function Form(props) {
                   value={postcode}
                   onChange={(e) => setPostcode(e.target.value)}
                   placeholder="SK17 9AE"
-                  className="max-w-[404px] w-[100%] md:w-[350px] lg:w-[380px] pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
+                  className="max-w-[404px] w-[100%] md:w-[350px] lg:w-[380px] pl-2 h-[35px] rounded-[15px] border-[1px] border-[#DADCE0]"
                 />
                 <button
                   type="button"
                   onClick={handleSearchClick}
-                  className="w-[30%] lg:w-[112px] h-[55px] rounded-[100px] text-white bg-[#1E1E1E]"
+                  className="w-[30%] lg:w-[112px] h-[35px] rounded-[100px] text-white bg-[#1E1E1E]"
                 >
                   Search
                 </button>
@@ -381,7 +381,7 @@ export default function Form(props) {
                 value={selectedAddress.line1}
                 onChange={handleAddressChange}
                 placeholder="48 Crowestones"
-                className="w-full pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
+                className="w-full pl-2 h-[35px] rounded-[15px] border-[1px] border-[#DADCE0]"
               />
             </div>
             <div className="w-[90%]  lg:w-[526px] flex flex-col items-start">
@@ -391,7 +391,7 @@ export default function Form(props) {
                 value={selectedAddress.line2}
                 onChange={handleAddressChange}
                 placeholder="Buxton"
-                className="w-full pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
+                className="w-full pl-2 h-[35px] rounded-[15px] border-[1px] border-[#DADCE0]"
               />
             </div>
             <div className="w-[90%] lg:w-[526px] flex flex-col items-start">
@@ -401,7 +401,7 @@ export default function Form(props) {
                 value={selectedAddress.line3}
                 onChange={handleAddressChange}
                 placeholder="Derbyshire"
-                className="w-full pl-2 h-[55px] rounded-[15px] border-[1px] border-[#DADCE0]"
+                className="w-full pl-2 h-[35px] rounded-[15px] border-[1px] border-[#DADCE0]"
               />
             </div>
           </div>
@@ -409,7 +409,7 @@ export default function Form(props) {
 
         <button
           type="submit"
-          className="bg-[#1E1E1E] w-[90%] lg:w-[526px] h-[55px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]"
+          className="bg-[#1E1E1E] w-[90%] lg:w-[526px] h-[35px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]"
         >
           Place Order
         </button>
