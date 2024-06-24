@@ -220,7 +220,7 @@ export default function Form(props) {
                 onChange={handleFirstName}
                 required
                 placeholder="David"
-                className="w-full pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0] placeholder-customGray"
+                className="w-full focus:border-[#0095ff] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0] placeholder-customGray"
               />
             </div>
           </div>
