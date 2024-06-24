@@ -232,9 +232,12 @@ export default function Form(props) {
     addParam("checkout[shipping_address][address1]", selectedAddress.line1);
     addParam("checkout[shipping_address][city]", selectedAddress.line2.split(' - ')[0]);
   
-    const queryString = Object.keys(params)
+    let queryString = Object.keys(params)
       .map(key => `${key}=${params[key]}`)
       .join('&');
+  
+    // Replace encoded '@' with '@' for readability
+    queryString = queryString.replace(/%40/g, '@');
   
     const newUrl = `${url.origin}${url.pathname}?${queryString}`;
     window.history.replaceState({}, '', newUrl);
@@ -244,7 +247,6 @@ export default function Form(props) {
     updateURLParams();
   }, [firstname, lastname, email, postcode, selectedAddress]);
   
-
   return (
     <div className="flex justify-center items-center flex-col max-w-[586px] h-fit mx-auto">
       <form
