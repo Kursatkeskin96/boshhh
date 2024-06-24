@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { CiMail } from "react-icons/ci";
 import { MdLocalPhone } from "react-icons/md";
 
@@ -22,6 +22,10 @@ export default function Form(props) {
     line1: "",
     line2: "",
   });
+
+  const dayRef = useRef(null);
+  const monthRef = useRef(null);
+  const yearRef = useRef(null);
 
   const handleSearchClick = async () => {
     try {
@@ -86,8 +90,10 @@ export default function Form(props) {
       if (value > 31) {
         e.target.value = "";
       } else {
-        e.target.value = value;
         setDateOfBirth((prev) => ({ ...prev, day: value }));
+        if (value.length === 2) {
+          monthRef.current.focus();
+        }
       }
     } else {
       e.target.value = value.slice(0, 2);
@@ -100,8 +106,10 @@ export default function Form(props) {
       if (value > 12) {
         e.target.value = "";
       } else {
-        e.target.value = value;
         setDateOfBirth((prev) => ({ ...prev, month: value }));
+        if (value.length === 2) {
+          yearRef.current.focus();
+        }
       }
     } else {
       e.target.value = value.slice(0, 2);
@@ -111,12 +119,7 @@ export default function Form(props) {
   const handleYearInputChange = (e) => {
     const value = e.target.value;
     if (value.length <= 4) {
-      if (value > 2008) {
-        e.target.value = "";
-      } else {
-        e.target.value = value;
-        setDateOfBirth((prev) => ({ ...prev, year: value }));
-      }
+      setDateOfBirth((prev) => ({ ...prev, year: value }));
     } else {
       e.target.value = value.slice(0, 4);
     }
@@ -205,9 +208,9 @@ export default function Form(props) {
         className="flex flex-col justify-center items-center"
         onSubmit={handleSubmit}
       >
-        <div className="flex flex-col md:flex-row justify-center items-center w-full lg:max-w-[526px] mx-auto">
+        <div className="flex flex-col gap-2 px-5 md:flex-row justify-center items-center w-full lg:max-w-[526px] mx-auto">
           <div className="flex flex-col w-full justify-center items-center">
-            <div className="md:w-[170px] lg:w-[250px] flex flex-col items-start">
+            <div className="md:w-[100%] lg:w-[250px] flex flex-col items-start">
               <label
                 htmlFor="firstname"
                 className="text-[#5F6368] text-[15px] font-normal"
@@ -220,12 +223,12 @@ export default function Form(props) {
                 onChange={handleFirstName}
                 required
                 placeholder="David"
-                className="w-full focus:border-[#0095ff] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0] placeholder-customGray"
+                className=" w-[100%] focus:border-[#0048ff] focus:ring-0 focus:outline-none pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0] placeholder-customGray"
               />
             </div>
           </div>
           <div className="flex flex-col w-full justify-center items-center">
-            <div className="w-[170px] lg:w-[250px] flex flex-col items-start">
+            <div className="w-[100%] lg:w-[250px] flex flex-col items-start">
               <label
                 htmlFor="lastname"
                 className="text-[#5F6368] text-[15px] font-normal"
@@ -238,7 +241,7 @@ export default function Form(props) {
                 onChange={handleLastName}
                 required
                 placeholder="Smith"
-                className="w-full pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0] placeholder-customGray"
+                className="w-full pl-2 h-[40px] focus:border-[#0048ff] focus:ring-0 focus:outline-none rounded-[8px] border-[1px] border-[#DADCE0] placeholder-customGray"
               />
             </div>
           </div>
@@ -257,7 +260,7 @@ export default function Form(props) {
               <input
                 required
                 
-                className={`pl-10 w-full placeholder-customGray h-[40px] rounded-[8px] border-[1px] ${
+                className={`pl-10 focus:border-[#0048ff] focus:ring-0 focus:outline-none w-full placeholder-customGray h-[40px] rounded-[8px] border-[1px] ${
                   isEmailValid ? "border-[#DADCE0]" : "border-red-500"
                 } mx-auto`}
                 type="email"
@@ -271,7 +274,7 @@ export default function Form(props) {
             <div className="relative w-[90%] lg:w-full flex justify-center mt-4">
               <MdLocalPhone className="absolute text-[#80868B] top-[50%] text-xl left-[10px] translate-y-[-50%] pointer-events-none" />
               <input
-                className="pl-10 placeholder-customGray w-full h-[40px] rounded-[8px] border-[1px] border-[#DADCE0] mx-auto"
+                className="pl-10 focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray w-full h-[40px] rounded-[8px] border-[1px] border-[#DADCE0] mx-auto"
                 type="number"
                 required
                 id="contact-phone"
@@ -295,26 +298,29 @@ export default function Form(props) {
               type="number"
               required
               id="dob-day"
+              ref={dayRef}
               onChange={handleDayInputChange}
               max="31"
               placeholder="DD"
-              className="w-[32%] placeholder-customGray lg:w-[170px] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
+              className="w-[32%] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray lg:w-[170px] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
             />
             <input
               type="number"
               id="dob-month"
+              ref={monthRef}
               required
               onChange={handleMonthInputChange}
               placeholder="MM"
-              className="w-[32%] placeholder-customGray lg:w-[170px] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
+              className="w-[32%] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray lg:w-[170px] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
             />
             <input
               type="number"
               required
               id="dob-year"
+              ref={yearRef}
               onChange={handleYearInputChange}
               placeholder="YYYY"
-              className="w-[32%] placeholder-customGray lg:w-[170px] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
+              className="w-[32%] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray lg:w-[170px] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
             />
           </div>
         </div>
@@ -335,7 +341,7 @@ export default function Form(props) {
                   value={postcode}
                   onChange={(e) => setPostcode(e.target.value)}
                   placeholder="SK17 9AE"
-                  className="max-w-[404px] placeholder-customGray w-[100%] md:w-[350px] lg:w-[380px] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
+                  className="max-w-[404px] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray w-[100%] md:w-[350px] lg:w-[380px] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
                 />
                 <button
                   type="button"
@@ -377,7 +383,7 @@ export default function Form(props) {
                 value={selectedAddress.line1}
                 onChange={handleAddressChange}
                 placeholder="48 Crowestones"
-                className="w-full placeholder-customGray pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
+                className="w-full focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
               />
             </div>
             <div className="w-[90%] lg:w-[526px] my-2 flex flex-col items-start">
@@ -387,7 +393,7 @@ export default function Form(props) {
                 value={selectedAddress.line2}
                 onChange={handleAddressChange}
                 placeholder="Buxton/Derbyshire"
-                className="w-full pl-2 h-[40px] placeholder-customGray rounded-[8px] border-[1px] border-[#DADCE0]"
+                className="w-full pl-2 focus:border-[#0048ff] focus:ring-0 focus:outline-none h-[40px] placeholder-customGray rounded-[8px] border-[1px] border-[#DADCE0]"
               />
             </div>
           </div>
