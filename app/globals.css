@@ -30,3 +30,7 @@ body, body * {
 button {
   font-family: 'Neulis Sans', 'sans-serif';
 }
+
+.hidden-input {
+  visibility: hidden;
+}

@@ -7,8 +7,22 @@ import Link from 'next/link';
 export default function Form(props) {
   const [isPostcodeValid, setIsPostcodeValid] = useState(false);
   const [postcode, setPostcode] = useState("");
-  const [addresses, setAddresses] = useState([]);
-  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const [addresses, setAddresses] = useState([
+    {
+      line1: "123 Main St",
+      line2: "Springfield - Illinois"
+    },
+    {
+      line1: "456 Elm St",
+      line2: "Metropolis - Illinois"
+    },
+    {
+      line1: "789 Oak St",
+      line2: "Smallville - Kansas"
+    }
+  ]);
+  
+  const [isDropDownOpen, setIsDropDownOpen] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [email, setEmail] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -402,7 +416,7 @@ export default function Form(props) {
             />
           </div>
         </div>
-        <div className="flex flex-col my-1 max-w-[526px] w-full mx-auto">
+  <div className="flex flex-col my-1 max-w-[526px] w-full mx-auto">
           <label
             htmlFor="postcode"
             className="text-[#5F6368] text-[15px] font-normal self-start w-[90%] lg:w-full mx-auto"
@@ -480,12 +494,14 @@ export default function Form(props) {
           </div>
         )}
 
-        <button
-          type="submit"
-          className="bg-[#1E1E1E] w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]"
-        >
-          place order
-        </button>
+<Link className="bg-[#1E1E1E] flex justify-center items-center   w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]" href={`https://boshhh.com/checkout?${queryString}`}>
+          <button
+            type="submit"
+            className="w-full"
+          >
+            place order
+          </button>
+        </Link>
       </form>
     </div>
   );
