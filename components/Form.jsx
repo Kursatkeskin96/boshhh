@@ -205,9 +205,9 @@ export default function Form(props) {
         className="flex flex-col justify-center items-center"
         onSubmit={handleSubmit}
       >
-        <div className="flex flex-col lg:flex-row justify-center items-center gap-4 w-full lg:max-w-[526px] mx-auto">
+        <div className="flex flex-col md:flex-row justify-center items-center w-full lg:max-w-[526px] mx-auto">
           <div className="flex flex-col w-full justify-center items-center">
-            <div className="w-[90%] lg:w-[250px] flex flex-col items-start">
+            <div className="md:w-[170px] lg:w-[250px] flex flex-col items-start">
               <label
                 htmlFor="firstname"
                 className="text-[#5F6368] text-[15px] font-normal"
@@ -225,7 +225,7 @@ export default function Form(props) {
             </div>
           </div>
           <div className="flex flex-col w-full justify-center items-center">
-            <div className="w-[90%] lg:w-[250px] flex flex-col items-start">
+            <div className="w-[170px] lg:w-[250px] flex flex-col items-start">
               <label
                 htmlFor="lastname"
                 className="text-[#5F6368] text-[15px] font-normal"
