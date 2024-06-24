@@ -302,7 +302,7 @@ export default function Form(props) {
             Contact *{" "}
           </label>
           <div className="w-full lg:w-full flex flex-col items-center mx-auto">
-            <div className="w-[90%] lg:w-full flex justify-center">
+            <div className="relative w-[90%] lg:w-full flex justify-center">
               <CiMail className="absolute text-[#80868B] top-[50%] text-xl left-[10px] translate-y-[-50%] pointer-events-none" />
               <input
                 required
@@ -318,7 +318,7 @@ export default function Form(props) {
               />
             </div>
 
-            <div className="w-[90%] lg:w-full flex justify-center mt-4">
+            <div className="relative w-[90%] lg:w-full flex justify-center mt-4">
               <MdLocalPhone className="absolute text-[#80868B] top-[50%] text-xl left-[10px] translate-y-[-50%] pointer-events-none" />
               <input
                 className="pl-10 focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray w-full h-[40px] rounded-[8px] border-[1px] border-[#DADCE0] mx-auto"
@@ -379,7 +379,7 @@ export default function Form(props) {
           >
             Postcode *
           </label>
-          <div className="flex justify-start items-center lg:gap-4 md:gap-6 gap-12 w-[90%] lg:w-full mx-auto">
+          <div className="relative flex justify-start items-center lg:gap-4 md:gap-6 gap-12 w-[90%] lg:w-full mx-auto">
             <div className="flex flex-col w-full">
               <div className="flex lg:gap-10 gap-4">
                 <input
@@ -402,7 +402,7 @@ export default function Form(props) {
               {isDropDownOpen && (
                 <div
                   ref={dropdownRef}
-                  className="z-10 border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[170px] overflow-y-auto"
+                  className="absolute z-10 border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[170px] overflow-y-auto"
                 >
                   {addresses.map((address, index) => (
                     <div
@@ -448,44 +448,6 @@ export default function Form(props) {
               />
             </div>
           </div>
-        )}
-
-        {!isDropDownOpen && (
-          <>
-            <div className="flex flex-col my-1 max-w-[526px] w-full mx-auto">
-              <label
-                htmlFor="line1"
-                className="text-[#5F6368] text-[15px] mb-1 font-normal"
-              >
-                Address Line 1
-              </label>
-              <input
-                type="text"
-                required
-                id="line1"
-                value={selectedAddress.line1}
-                onChange={handleAddressChange}
-                placeholder="48 Crowestones"
-                className="w-full focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
-              />
-            </div>
-            <div className="flex flex-col my-1 max-w-[526px] w-full mx-auto">
-              <label
-                htmlFor="line2"
-                className="text-[#5F6368] text-[15px] mb-1 font-normal"
-              >
-                Address Line 2
-              </label>
-              <input
-                type="text"
-                id="line2"
-                value={selectedAddress.line2}
-                onChange={handleAddressChange}
-                placeholder="Buxton/Derbyshire"
-                className="w-full pl-2 focus:border-[#0048ff] focus:ring-0 focus:outline-none h-[40px] placeholder-customGray rounded-[8px] border-[1px] border-[#DADCE0]"
-              />
-            </div>
-          </>
         )}
 
         <button
