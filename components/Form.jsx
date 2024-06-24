@@ -41,6 +41,22 @@ export default function Form(props) {
     };
   }, [dropdownRef]);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const firstNameParam = urlParams.get('firstName');
+    const lastNameParam = urlParams.get('lastName');
+    const emailParam = urlParams.get('email');
+    const phoneParam = urlParams.get('phone');
+
+    if (firstNameParam) setFirstname(firstNameParam);
+    if (lastNameParam) setLastname(lastNameParam);
+    if (emailParam) {
+      setEmail(emailParam);
+      setIsEmailValid(validateEmail(emailParam));
+    }
+    if (phoneParam) setPhone(phoneParam);
+  }, []);
+
   const handleSearchClick = async () => {
     try {
       const response = await fetch(
@@ -234,6 +250,7 @@ export default function Form(props) {
                 type="text"
                 id="firstname"
                 onChange={handleFirstName}
+                value={firstname}
                 required
                 placeholder="David"
                 className=" w-[100%] focus:border-[#0048ff] focus:ring-0 focus:outline-none pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0] placeholder-customGray"
@@ -252,6 +269,7 @@ export default function Form(props) {
                 type="text"
                 id="lastname"
                 onChange={handleLastName}
+                value={lastname}
                 required
                 placeholder="Smith"
                 className="w-full pl-2 h-[40px] focus:border-[#0048ff] focus:ring-0 focus:outline-none rounded-[8px] border-[1px] border-[#DADCE0] placeholder-customGray"
@@ -272,13 +290,13 @@ export default function Form(props) {
               <CiMail className="absolute text-[#80868B] top-[50%] text-xl left-[10px] translate-y-[-50%] pointer-events-none" />
               <input
                 required
-                
                 className={`pl-10 focus:border-[#0048ff] focus:ring-0 focus:outline-none w-full placeholder-customGray h-[40px] rounded-[8px] border-[1px] ${
                   isEmailValid ? "border-[#DADCE0]" : "border-red-500"
                 } mx-auto`}
                 type="email"
                 id="contact-email"
                 onChange={handleEmailChange}
+                value={email}
                 placeholder="Your email"
                 {...props}
               />
@@ -292,6 +310,7 @@ export default function Form(props) {
                 required
                 id="contact-phone"
                 onChange={handlePhoneInputChange}
+                value={phone}
                 placeholder="07507 440705"
                 {...props}
               />
