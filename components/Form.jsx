@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useRef, useEffect } from "react";
 import { CiMail } from "react-icons/ci";
 import { MdLocalPhone } from "react-icons/md";
