@@ -6,8 +6,22 @@ import { MdLocalPhone } from "react-icons/md";
 export default function Form(props) {
   const [isPostcodeValid, setIsPostcodeValid] = useState(false);
   const [postcode, setPostcode] = useState("");
-  const [addresses, setAddresses] = useState([]);
-  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const [addresses, setAddresses] = useState([
+    {
+      line1: "123 Main St",
+      line2: "Springfield - Illinois"
+    },
+    {
+      line1: "456 Elm St",
+      line2: "Metropolis - Illinois"
+    },
+    {
+      line1: "789 Oak St",
+      line2: "Smallville - Kansas"
+    }
+  ]);
+  
+  const [isDropDownOpen, setIsDropDownOpen] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [email, setEmail] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -379,7 +393,7 @@ export default function Form(props) {
           >
             Postcode *
           </label>
-          <div className="relative flex justify-start items-center lg:gap-4 md:gap-6 gap-12 w-[90%] lg:w-full mx-auto">
+          <div className="flex justify-start items-center lg:gap-4 md:gap-6 gap-12 w-[90%] lg:w-full mx-auto">
             <div className="flex flex-col w-full">
               <div className="flex lg:gap-10 gap-4">
                 <input
@@ -402,7 +416,7 @@ export default function Form(props) {
               {isDropDownOpen && (
                 <div
                   ref={dropdownRef}
-                  className="absolute z-10 border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[170px] overflow-y-auto"
+                  className="border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[170px] overflow-y-auto"
                 >
                   {addresses.map((address, index) => (
                     <div
@@ -418,7 +432,7 @@ export default function Form(props) {
             </div>
           </div>
         </div>
-        {isPostcodeValid && (
+        {isPostcodeValid && !isDropDownOpen &&(
           <div className="flex flex-col w-full justify-center items-center">
             <div className="w-[90%] lg:w-[526px] flex flex-col items-start">
               <label
