@@ -1,7 +1,7 @@
-"use client";
 import React, { useState, useRef, useEffect } from "react";
 import { CiMail } from "react-icons/ci";
 import { MdLocalPhone } from "react-icons/md";
+import Link from 'next/link';
 
 export default function Form(props) {
   const [isPostcodeValid, setIsPostcodeValid] = useState(false);
@@ -53,13 +53,13 @@ export default function Form(props) {
           },
         }
       );
-  
+
       if (!response.ok) {
         throw new Error("Failed to fetch address");
       }
-  
+
       const fetchedData = await response.json();
-  
+
       if (Array.isArray(fetchedData.thoroughfares)) {
         const formattedAddresses = fetchedData.thoroughfares.map(
           (thoroughfare) => {
@@ -69,19 +69,28 @@ export default function Form(props) {
             };
           }
         );
-  
+
         // Sort addresses in ascending order with natural sort
         formattedAddresses.sort((a, b) => {
-          const numA = parseInt(a.line1.match(/\d+/), 10);
-          const numB = parseInt(b.line1.match(/\d+/), 10);
-          
-          if (numA && numB) {
-            return numA - numB;
-          } else {
-            return a.line1.localeCompare(b.line1);
+          const parseAddress = (address) => {
+            return address.match(/(\d+|\D+)/g).map((part) => {
+              return isNaN(part) ? part : parseInt(part, 10);
+            });
+          };
+
+          const partsA = parseAddress(a.line1);
+          const partsB = parseAddress(b.line1);
+
+          for (let i = 0; i < Math.max(partsA.length, partsB.length); i++) {
+            if (partsA[i] === undefined) return -1;
+            if (partsB[i] === undefined) return 1;
+            if (partsA[i] < partsB[i]) return -1;
+            if (partsA[i] > partsB[i]) return 1;
           }
+
+          return 0;
         });
-  
+
         setAddresses(formattedAddresses);
         setIsPostcodeValid(true);
         setIsDropDownOpen(true);
@@ -94,8 +103,6 @@ export default function Form(props) {
       setAddresses([]);
     }
   };
-  
-  
 
   const handleAddressSelect = (address) => {
     setSelectedAddress(address);
@@ -232,7 +239,7 @@ export default function Form(props) {
   const updateURLParams = () => {
     const url = new URL(window.location);
     const params = {};
-  
+
     const addParam = (key, value) => {
       if (value) {
         // Remove leading and trailing whitespace and replace remaining spaces
@@ -240,25 +247,28 @@ export default function Form(props) {
         params[key] = encodeURIComponent(sanitizedValue);
       }
     };
-  
+
     addParam("checkout[shipping_address][first_name]", firstname);
     addParam("checkout[shipping_address][last_name]", lastname);
     addParam("checkout[email]", email);
     addParam("checkout[shipping_address][postcode]", postcode);
     addParam("checkout[shipping_address][address1]", selectedAddress.line1);
     addParam("checkout[shipping_address][city]", selectedAddress.line2.split(' - ')[0]);
-  
+
     let queryString = Object.keys(params)
       .map(key => `${key}=${params[key]}`)
       .join('&');
-  
+
     // Replace encoded '@' with '@' for readability
     queryString = queryString.replace(/%40/g, '@');
-  
+
     const newUrl = `${url.origin}${url.pathname}?${queryString}`;
     window.history.replaceState({}, '', newUrl);
+    return queryString;
   };
-  
+
+  const queryString = updateURLParams();
+
   useEffect(() => {
     updateURLParams();
   }, [firstname, lastname, email, postcode, selectedAddress]);
@@ -270,7 +280,7 @@ export default function Form(props) {
         className="flex flex-col justify-center items-center"
         onSubmit={handleSubmit}
       >
-           <div className="flex flex-col gap-2 px-5 md:flex-row justify-center items-center w-full lg:max-w-[526px] mx-auto">
+        <div className="flex flex-col gap-2 px-5 md:flex-row justify-center items-center w-full lg:max-w-[526px] mx-auto">
           <div className="flex flex-col w-full justify-center items-center">
             <div className="w-[100%] lg:w-[250px] flex flex-col items-start">
               <label
@@ -435,7 +445,7 @@ export default function Form(props) {
             </div>
           </div>
         </div>
-        {isPostcodeValid && (
+        {isPostcodeValid && !isDropDownOpen && (
           <div className="flex flex-col w-full justify-center items-center">
             <div className="w-[90%] lg:w-[526px] flex flex-col items-start">
               <label
@@ -467,12 +477,14 @@ export default function Form(props) {
           </div>
         )}
 
-        <button
-          type="submit"
-          className="bg-[#1E1E1E] w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]"
-        >
-          place order
-        </button>
+        <Link href={`https://boshhh.com/checkout?${queryString}`}>
+          <button
+            type="submit"
+            className="bg-[#1E1E1E] w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]"
+          >
+            place order
+          </button>
+        </Link>
       </form>
     </div>
   );
