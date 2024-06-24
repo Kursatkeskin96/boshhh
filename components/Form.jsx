@@ -174,9 +174,10 @@ export default function Form(props) {
   const handlePhoneInputChange = (e) => {
     let value = e.target.value;
 
-    if (!/^07/.test(value) && /^\d{2}/.test(value)) {
-      value = '';
+    if (value.length === 10 && !value.startsWith('0')) {
+      value = '0' + value;
     }
+
     if (value.length > 11) {
       value = value.slice(0, 11);
     }
