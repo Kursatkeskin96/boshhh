@@ -217,18 +217,33 @@ export default function Form(props) {
 
   const updateURLParams = () => {
     const url = new URL(window.location);
-    if (firstname) url.searchParams.set("&checkout[shipping_address][first_name]=", firstname);
-    if (lastname) url.searchParams.set("&checkout[shipping_address][last_name]=", lastname);
-    if (email) url.searchParams.set("&checkout[email]=", email);
-    if (postcode) url.searchParams.set("&checkout[shipping_address][postcode]=", postcode);
-    if (selectedAddress.line1) url.searchParams.set("&checkout[shipping_address][address1]=", selectedAddress.line1);
-    if (selectedAddress.line2.split(' - ')[0]) url.searchParams.set("&checkout[shipping_address][city]=", selectedAddress.line2.split(' - ')[0]);
-    window.history.replaceState({}, '', url);
+    const params = {};
+  
+    const addParam = (key, value) => {
+      if (value) {
+        params[key] = encodeURIComponent(value);
+      }
+    };
+  
+    addParam("checkout[shipping_address][first_name]", firstname);
+    addParam("checkout[shipping_address][last_name]", lastname);
+    addParam("checkout[email]", email);
+    addParam("checkout[shipping_address][postcode]", postcode);
+    addParam("checkout[shipping_address][address1]", selectedAddress.line1);
+    addParam("checkout[shipping_address][city]", selectedAddress.line2.split(' - ')[0]);
+  
+    const queryString = Object.keys(params)
+      .map(key => `${key}=${params[key]}`)
+      .join('&');
+  
+    const newUrl = `${url.origin}${url.pathname}?${queryString}`;
+    window.history.replaceState({}, '', newUrl);
   };
-
+  
   useEffect(() => {
     updateURLParams();
   }, [firstname, lastname, email, postcode, selectedAddress]);
+  
 
   return (
     <div className="flex justify-center items-center flex-col max-w-[586px] h-fit mx-auto">
