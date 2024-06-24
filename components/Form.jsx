@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { CiMail } from "react-icons/ci";
 import { MdLocalPhone } from "react-icons/md";
 
@@ -26,6 +26,20 @@ export default function Form(props) {
   const dayRef = useRef(null);
   const monthRef = useRef(null);
   const yearRef = useRef(null);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropDownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
 
   const handleSearchClick = async () => {
     try {
@@ -352,7 +366,10 @@ export default function Form(props) {
                 </button>
               </div>
               {isDropDownOpen && (
-                <div className="border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[100px] overflow-y-auto">
+                <div
+                  ref={dropdownRef}
+                  className="border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[100px] overflow-y-auto"
+                >
                   {addresses.map((address, index) => (
                     <div
                       key={index}
@@ -403,7 +420,7 @@ export default function Form(props) {
           type="submit"
           className="bg-[#1E1E1E] w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]"
         >
-            place order
+          place order
         </button>
       </form>
     </div>
