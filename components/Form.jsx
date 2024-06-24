@@ -432,7 +432,7 @@ export default function Form(props) {
               {isDropDownOpen && (
                 <div
                   ref={dropdownRef}
-                  className="border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[170px] overflow-y-auto"
+                  className="border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[130px] overflow-y-auto"
                 >
                   {addresses.map((address, index) => (
                     <div
