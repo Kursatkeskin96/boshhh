@@ -217,11 +217,11 @@ export default function Form(props) {
 
   const updateURLParams = () => {
     const url = new URL(window.location);
-    if (firstname) url.searchParams.set("firstname", firstname);
-    if (lastname) url.searchParams.set("lastname", lastname);
+    if (firstname) url.searchParams.set("first_name", firstname);
+    if (lastname) url.searchParams.set("last_name", lastname);
     if (email) url.searchParams.set("email", email);
     if (postcode) url.searchParams.set("postcode", postcode);
-    if (selectedAddress.line1) url.searchParams.set("addressline1", selectedAddress.line1);
+    if (selectedAddress.line1) url.searchParams.set("address1", selectedAddress.line1);
     if (selectedAddress.line2.split(' - ')[0]) url.searchParams.set("city", selectedAddress.line2.split(' - ')[0]);
     window.history.replaceState({}, '', url);
   };
