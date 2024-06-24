@@ -53,13 +53,13 @@ export default function Form(props) {
           },
         }
       );
-
+  
       if (!response.ok) {
         throw new Error("Failed to fetch address");
       }
-
+  
       const fetchedData = await response.json();
-
+  
       if (Array.isArray(fetchedData.thoroughfares)) {
         const formattedAddresses = fetchedData.thoroughfares.map(
           (thoroughfare) => {
@@ -69,7 +69,10 @@ export default function Form(props) {
             };
           }
         );
-
+  
+        // Sort addresses in ascending order
+        formattedAddresses.sort((a, b) => a.line1.localeCompare(b.line1));
+  
         setAddresses(formattedAddresses);
         setIsPostcodeValid(true);
         setIsDropDownOpen(true);
@@ -82,6 +85,7 @@ export default function Form(props) {
       setAddresses([]);
     }
   };
+  
 
   const handleAddressSelect = (address) => {
     setSelectedAddress(address);
