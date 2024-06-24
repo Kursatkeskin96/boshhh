@@ -217,12 +217,12 @@ export default function Form(props) {
 
   const updateURLParams = () => {
     const url = new URL(window.location);
-    if (firstname) url.searchParams.set("first_name", firstname);
-    if (lastname) url.searchParams.set("last_name", lastname);
-    if (email) url.searchParams.set("email", email);
-    if (postcode) url.searchParams.set("postcode", postcode);
-    if (selectedAddress.line1) url.searchParams.set("address1", selectedAddress.line1);
-    if (selectedAddress.line2.split(' - ')[0]) url.searchParams.set("city", selectedAddress.line2.split(' - ')[0]);
+    if (firstname) url.searchParams.set("&checkout[shipping_address][first_name]=", firstname);
+    if (lastname) url.searchParams.set("&checkout[shipping_address][last_name]=", lastname);
+    if (email) url.searchParams.set("&checkout[email]=", email);
+    if (postcode) url.searchParams.set("&checkout[shipping_address][postcode]=", postcode);
+    if (selectedAddress.line1) url.searchParams.set("&checkout[shipping_address][address1]=", selectedAddress.line1);
+    if (selectedAddress.line2.split(' - ')[0]) url.searchParams.set("&checkout[shipping_address][city]=", selectedAddress.line2.split(' - ')[0]);
     window.history.replaceState({}, '', url);
   };
 
