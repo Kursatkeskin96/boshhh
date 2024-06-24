@@ -63,7 +63,6 @@ export default function Form(props) {
       if (Array.isArray(fetchedData.thoroughfares)) {
         const formattedAddresses = fetchedData.thoroughfares.map(
           (thoroughfare) => {
-            console.log(fetchedData);
             return {
               line1: thoroughfare.name,
               line2: `${fetchedData.town} - ${fetchedData.county}`,
@@ -222,122 +221,6 @@ export default function Form(props) {
         className="flex flex-col justify-center items-center"
         onSubmit={handleSubmit}
       >
-        <div className="flex flex-col gap-2 px-5 md:flex-row justify-center items-center w-full lg:max-w-[526px] mx-auto">
-          <div className="flex flex-col w-full justify-center items-center">
-            <div className="md:w-[100%] lg:w-[250px] flex flex-col items-start">
-              <label
-                htmlFor="firstname"
-                className="text-[#5F6368] text-[15px] font-normal"
-              >
-                First name *{" "}
-              </label>
-              <input
-                type="text"
-                id="firstname"
-                onChange={handleFirstName}
-                required
-                placeholder="David"
-                className=" w-[100%] focus:border-[#0048ff] focus:ring-0 focus:outline-none pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0] placeholder-customGray"
-              />
-            </div>
-          </div>
-          <div className="flex flex-col w-full justify-center items-center">
-            <div className="w-[100%] lg:w-[250px] flex flex-col items-start">
-              <label
-                htmlFor="lastname"
-                className="text-[#5F6368] text-[15px] font-normal"
-              >
-                Last name *{" "}
-              </label>
-              <input
-                type="text"
-                id="lastname"
-                onChange={handleLastName}
-                required
-                placeholder="Smith"
-                className="w-full pl-2 h-[40px] focus:border-[#0048ff] focus:ring-0 focus:outline-none rounded-[8px] border-[1px] border-[#DADCE0] placeholder-customGray"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-col max-w-[526px] mt-4 mb-4 w-full mx-auto">
-          <label
-            htmlFor="contact-email"
-            className="text-[#5F6368] text-[15px] font-normal self-start w-[90%] lg:w-full mx-auto"
-          >
-            Contact *{" "}
-          </label>
-          <div className="w-full lg:w-full flex flex-col items-center mx-auto">
-            <div className="relative w-[90%] lg:w-full flex justify-center">
-              <CiMail className="absolute text-[#80868B] top-[50%] text-xl left-[10px] translate-y-[-50%] pointer-events-none" />
-              <input
-                required
-                
-                className={`pl-10 focus:border-[#0048ff] focus:ring-0 focus:outline-none w-full placeholder-customGray h-[40px] rounded-[8px] border-[1px] ${
-                  isEmailValid ? "border-[#DADCE0]" : "border-red-500"
-                } mx-auto`}
-                type="email"
-                id="contact-email"
-                onChange={handleEmailChange}
-                placeholder="Your email"
-                {...props}
-              />
-            </div>
-
-            <div className="relative w-[90%] lg:w-full flex justify-center mt-4">
-              <MdLocalPhone className="absolute text-[#80868B] top-[50%] text-xl left-[10px] translate-y-[-50%] pointer-events-none" />
-              <input
-                className="pl-10 focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray w-full h-[40px] rounded-[8px] border-[1px] border-[#DADCE0] mx-auto"
-                type="number"
-                required
-                id="contact-phone"
-                onChange={handlePhoneInputChange}
-                placeholder="07507 440705"
-                {...props}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="flex mb-2 flex-col max-w-[526px] w-full mx-auto">
-          <label
-            htmlFor="dob-day"
-            className="text-[#5F6368] text-[15px] font-normal self-start w-[90%] lg:w-full mx-auto"
-          >
-            Date of Birth *
-          </label>
-          <div className="flex justify-center items-center gap-2  w-[90%] lg:w-full mx-auto">
-            <input
-              type="number"
-              required
-              id="dob-day"
-              ref={dayRef}
-              onChange={handleDayInputChange}
-              max="31"
-              placeholder="DD"
-              className="w-[32%] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray lg:w-[170px] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
-            />
-            <input
-              type="number"
-              id="dob-month"
-              ref={monthRef}
-              required
-              onChange={handleMonthInputChange}
-              placeholder="MM"
-              className="w-[32%] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray lg:w-[170px] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
-            />
-            <input
-              type="number"
-              required
-              id="dob-year"
-              ref={yearRef}
-              onChange={handleYearInputChange}
-              placeholder="YYYY"
-              className="w-[32%] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray lg:w-[170px] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
-            />
-          </div>
-        </div>
         <div className="flex flex-col my-1 max-w-[526px] w-full mx-auto">
           <label
             htmlFor="postcode"
@@ -345,7 +228,7 @@ export default function Form(props) {
           >
             Postcode *
           </label>
-          <div className="flex justify-start items-center lg:gap-4 md:gap-6 gap-12 w-[90%] lg:w-full mx-auto">
+          <div className="relative flex justify-start items-center lg:gap-4 md:gap-6 gap-12 w-[90%] lg:w-full mx-auto">
             <div className="flex flex-col w-full">
               <div className="flex lg:gap-10 gap-4">
                 <input
@@ -368,7 +251,7 @@ export default function Form(props) {
               {isDropDownOpen && (
                 <div
                   ref={dropdownRef}
-                  className="border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[100px] overflow-y-auto"
+                  className="absolute z-10 border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[100px] overflow-y-auto"
                 >
                   {addresses.map((address, index) => (
                     <div
