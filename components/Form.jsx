@@ -41,22 +41,6 @@ export default function Form(props) {
     };
   }, [dropdownRef]);
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const firstNameParam = urlParams.get('firstName');
-    const lastNameParam = urlParams.get('lastName');
-    const emailParam = urlParams.get('email');
-    const phoneParam = urlParams.get('phone');
-
-    if (firstNameParam) setFirstname(firstNameParam);
-    if (lastNameParam) setLastname(lastNameParam);
-    if (emailParam) {
-      setEmail(emailParam);
-      setIsEmailValid(validateEmail(emailParam));
-    }
-    if (phoneParam) setPhone(phoneParam);
-  }, []);
-
   const handleSearchClick = async () => {
     try {
       const response = await fetch(
@@ -230,6 +214,22 @@ export default function Form(props) {
       console.error("Error:", error);
     }
   };
+
+  console.log(addresses)
+
+  const updateURLParams = () => {
+    const url = new URL(window.location);
+    if (firstname) url.searchParams.set("firstname", firstname);
+    if (lastname) url.searchParams.set("lastname", lastname);
+    if (email) url.searchParams.set("email", email);
+    if (phone) url.searchParams.set("phone", phone);
+    if (postcode) url.searchParams.set("postcode", postcode);
+    window.history.replaceState({}, '', url);
+  };
+
+  useEffect(() => {
+    updateURLParams();
+  }, [firstname, lastname, email, phone, postcode]);
 
   return (
     <div className="flex justify-center items-center flex-col max-w-[586px] h-fit mx-auto">
