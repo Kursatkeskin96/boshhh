@@ -2,3 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'Satoshi';
+    src: url('/utils/fonts/Satoshi-Regular.woff2') format('woff2'),
+         url('/utils/fonts/Satoshi-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Neulis Sans';
+    src: url('/utils/fonts/Neulis_Sans_Regular.otf') format('otf');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  /* Add more font-face declarations if you have different weights or styles */
+  
+  body, body * {
+    font-family: 'Satoshi', 'sans-serif';
+  }
+
+  button {
+    font-family: 'Neulis Sans', 'sans-serif';
+  }
+  
