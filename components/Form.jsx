@@ -215,21 +215,20 @@ export default function Form(props) {
     }
   };
 
-  console.log(addresses)
-
   const updateURLParams = () => {
     const url = new URL(window.location);
     if (firstname) url.searchParams.set("firstname", firstname);
     if (lastname) url.searchParams.set("lastname", lastname);
     if (email) url.searchParams.set("email", email);
-    if (phone) url.searchParams.set("phone", phone);
     if (postcode) url.searchParams.set("postcode", postcode);
+    if (selectedAddress.line1) url.searchParams.set("addressline1", selectedAddress.line1);
+    if (selectedAddress.line2.split(' - ')[0]) url.searchParams.set("city", selectedAddress.line2.split(' - ')[0]);
     window.history.replaceState({}, '', url);
   };
 
   useEffect(() => {
     updateURLParams();
-  }, [firstname, lastname, email, phone, postcode]);
+  }, [firstname, lastname, email, postcode, selectedAddress]);
 
   return (
     <div className="flex justify-center items-center flex-col max-w-[586px] h-fit mx-auto">
