@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useState, useRef, useEffect } from "react";
 import { CiMail } from "react-icons/ci";
 import { MdLocalPhone } from "react-icons/md";
@@ -268,12 +268,13 @@ export default function Form(props) {
     return queryString;
   };
 
-  const queryString = updateURLParams();
-
   useEffect(() => {
-    updateURLParams();
+    if (typeof window !== "undefined") {
+      updateURLParams();
+    }
   }, [firstname, lastname, email, postcode, selectedAddress]);
-  
+
+  const queryString = typeof window !== "undefined" ? updateURLParams() : "";
   
   return (
     <div className="flex justify-center items-center flex-col max-w-[586px] h-fit mx-auto">
@@ -430,7 +431,7 @@ export default function Form(props) {
               {isDropDownOpen && (
                 <div
                   ref={dropdownRef}
-                  className="absolute z-10 border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[170px] overflow-y-auto"
+                  className="border border-gray-300 rounded-md bg-white w-full max-w-[404px] max-h-[170px] overflow-y-auto"
                 >
                   {addresses.map((address, index) => (
                     <div
