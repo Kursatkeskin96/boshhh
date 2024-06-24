@@ -4,20 +4,19 @@
 
 @font-face {
   font-family: 'Satoshi';
-  src: url('/utils/fonts/Satoshi-Regular.eot'); /* IE9 */
-  src: url('/utils/fonts/Satoshi-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('/utils/fonts/Satoshi-Regular.woff2') format('woff2'), /* Super Modern Browsers */
-       url('/utils/fonts/Satoshi-Regular.woff') format('woff'), /* Modern Browsers */
-       url('/utils/fonts/Satoshi-Regular.ttf') format('truetype'); /* Safari, Android, iOS */
+  src: url('/fonts/Satoshi-Regular.eot'); /* IE9 */
+  src: url('/fonts/Satoshi-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('/fonts/Satoshi-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('/fonts/Satoshi-Regular.woff') format('woff'), /* Modern Browsers */
+       url('/fonts/Satoshi-Regular.ttf') format('truetype'); /* Safari, Android, iOS */
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
 }
 
 
 @font-face {
   font-family: 'Neulis Sans';
-  src: url('/utils/fonts/Neulis_Sans_Regular.otf') format('opentype');
+  src: url('/fonts/Neulis_Sans_Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
