@@ -253,7 +253,7 @@ export default function Form(props) {
       >
            <div className="flex flex-col gap-2 px-5 md:flex-row justify-center items-center w-full lg:max-w-[526px] mx-auto">
           <div className="flex flex-col w-full justify-center items-center">
-            <div className="md:w-[100%] lg:w-[250px] flex flex-col items-start">
+            <div className="w-[100%] lg:w-[250px] flex flex-col items-start">
               <label
                 htmlFor="firstname"
                 className="text-[#5F6368] text-[15px] font-normal"
