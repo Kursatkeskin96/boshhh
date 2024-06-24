@@ -70,8 +70,17 @@ export default function Form(props) {
           }
         );
   
-        // Sort addresses in ascending order
-        formattedAddresses.sort((a, b) => a.line1.localeCompare(b.line1));
+        // Sort addresses in ascending order with natural sort
+        formattedAddresses.sort((a, b) => {
+          const numA = parseInt(a.line1.match(/\d+/), 10);
+          const numB = parseInt(b.line1.match(/\d+/), 10);
+          
+          if (numA && numB) {
+            return numA - numB;
+          } else {
+            return a.line1.localeCompare(b.line1);
+          }
+        });
   
         setAddresses(formattedAddresses);
         setIsPostcodeValid(true);
@@ -85,6 +94,7 @@ export default function Form(props) {
       setAddresses([]);
     }
   };
+  
   
 
   const handleAddressSelect = (address) => {
@@ -225,7 +235,9 @@ export default function Form(props) {
   
     const addParam = (key, value) => {
       if (value) {
-        params[key] = encodeURIComponent(value);
+        // Remove leading and trailing whitespace and replace remaining spaces
+        const sanitizedValue = value.trim().replace(/\s+/g, '');
+        params[key] = encodeURIComponent(sanitizedValue);
       }
     };
   
@@ -250,6 +262,7 @@ export default function Form(props) {
   useEffect(() => {
     updateURLParams();
   }, [firstname, lastname, email, postcode, selectedAddress]);
+  
   
   return (
     <div className="flex justify-center items-center flex-col max-w-[586px] h-fit mx-auto">
