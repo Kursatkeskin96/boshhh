@@ -5,24 +5,11 @@ import { MdLocalPhone } from "react-icons/md";
 import Link from 'next/link';
 
 export default function Form(props) {
-  const [isPostcodeValid, setIsPostcodeValid] = useState(false);
+  const [isPostcodeValid, setIsPostcodeValid] = useState(true);
   const [postcode, setPostcode] = useState("");
-  const [addresses, setAddresses] = useState([
-    {
-      line1: "123 Main St",
-      line2: "Springfield - Illinois"
-    },
-    {
-      line1: "456 Elm St",
-      line2: "Metropolis - Illinois"
-    },
-    {
-      line1: "789 Oak St",
-      line2: "Smallville - Kansas"
-    }
-  ]);
+  const [addresses, setAddresses] = useState([]);
   
-  const [isDropDownOpen, setIsDropDownOpen] = useState(true);
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [email, setEmail] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -112,10 +99,12 @@ export default function Form(props) {
       } else {
         console.error("Unexpected response format:", fetchedData);
         setAddresses([]);
+        setIsPostcodeValid(false);
       }
     } catch (error) {
       console.error("Error fetching addresses:", error);
       setAddresses([]);
+      setIsPostcodeValid(false);
     }
   };
 
@@ -416,7 +405,7 @@ export default function Form(props) {
             />
           </div>
         </div>
-  <div className="flex flex-col my-1 max-w-[526px] w-full mx-auto">
+        <div className="flex flex-col my-1 max-w-[526px] w-full mx-auto">
           <label
             htmlFor="postcode"
             className="text-[#5F6368] text-[15px] font-normal self-start w-[90%] lg:w-full mx-auto"
@@ -433,7 +422,9 @@ export default function Form(props) {
                   value={postcode}
                   onChange={(e) => setPostcode(e.target.value)}
                   placeholder="SK17 9AE"
-                  className="max-w-[404px] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray w-[100%] md:w-[350px] lg:w-[380px] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
+                  className={`max-w-[404px] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray w-[100%] md:w-[350px] lg:w-[380px] pl-2 h-[40px] rounded-[8px] border-[1px] ${
+                    isPostcodeValid ? "border-[#DADCE0]" : "border-red-500"
+                  }`}
                 />
                 <button
                   type="button"
