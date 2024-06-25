@@ -485,7 +485,7 @@ export default function Form(props) {
           </div>
         )}
 
-        <Link className="bg-[#1E1E1E] flex justify-center items-center   w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]" href={`https://boshhh-form.vercel.app/checkout`}>
+        <Link className="bg-[#1E1E1E] flex justify-center items-center   w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]" href={`https://buy.stripe.com/test_14kfZZ5T60Rf0nedQR`}>
           <button
             type="submit"
             className="w-full"
