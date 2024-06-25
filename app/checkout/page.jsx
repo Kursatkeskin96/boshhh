@@ -1,8 +1,9 @@
 import React from 'react'
 import Checkout from '@/components/Checkout'
 
-export default function Checkout() {
+export default function page() {
   return (
-    <div><Checkout /></div>
+    <div className='bg-red-200 w-screen h-screen'>
+    </div>
   )
 }
