@@ -254,7 +254,6 @@ export default function Form(props) {
     };
 
   addParam("email", email);
-  addParam("postcode", postcode);
 
   let queryString = Object.keys(params)
     .map(key => `${key}=${params[key]}`)

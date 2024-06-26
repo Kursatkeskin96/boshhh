@@ -18,14 +18,9 @@ const CheckoutForm = () => {
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
     const emailParam = queryParams.get('email');
-    const postcodeParam = queryParams.get('postcode');
 
     if (emailParam) {
       setEmail(emailParam);
-    }
-
-    if (postcodeParam) {
-      setPostcode(postcodeParam);
     }
   }, []);
 
