@@ -62,12 +62,12 @@ const CheckoutForm = () => {
           type="email"
           value={email}
           placeholder='steven@gmail.com'
-          className='focus:border-[#0048ff] px-[12px] mb-2 focus:ring-0 focus:outline-none placeholder-customGray w-full h-[40px] rounded-[5px] border-[1px] border-[#DADCE0] mx-auto'
+          className='focus:border-[#0048ff] px-[12px] mb-4 focus:ring-0 focus:outline-none placeholder-customGray w-full h-[40px] rounded-[5px] border-[1px] border-[#DADCE0] mx-auto'
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-      <PaymentElement options={{ fields: { linkAuthentication: 'never' } }} />
-      <button type="submit" disabled={!stripe} className='bg-[#1E1E1E] text-center flex justify-center items-center   w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]" '>
+      <PaymentElement />
+      <button type="submit" disabled={!stripe} className='bg-[#1E1E1E] text-center flex justify-center items-center w-[100%] max-w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-xl'>
         Pay
       </button>
     </form>
