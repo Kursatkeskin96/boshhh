@@ -54,8 +54,7 @@ const CheckoutForm = () => {
   return (
     <div className='max-w-[586px] flex justify-center items-center mx-auto'>
         <form onSubmit={handleSubmit} >
-      {clientSecret && (
-        <label>
+      <label>
         Email
         <input
           type="email"
@@ -63,13 +62,10 @@ const CheckoutForm = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
       </label>
-      )}
       <PaymentElement />
-   {clientSecret && (
-       <button type="submit" disabled={!stripe} className='bg-[#1E1E1E] text-center flex justify-center items-center   w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]" '>
-       Pay
-     </button>
-   )}
+      <button type="submit" disabled={!stripe} className='bg-[#1E1E1E] text-center flex justify-center items-center   w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]" '>
+        Pay
+      </button>
     </form>
     </div>
   );
@@ -98,7 +94,7 @@ const PaymentPage = () => {
     <>
     {clientSecret &&  (
       <Elements stripe={stripePromise} options={{ clientSecret }}>
-        <CheckoutForm clientSecret={clientSecret} />
+        <CheckoutForm />
       </Elements>
     )}
   </>
