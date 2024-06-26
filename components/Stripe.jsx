@@ -54,14 +54,18 @@ const CheckoutForm = () => {
   return (
     <div className='max-w-[586px] flex justify-center items-center mx-auto'>
         <form onSubmit={handleSubmit} >
+      <div className='flex flex-col'>
       <label>
         Email
+        </label>
         <input
           type="email"
           value={email}
+          placeholder='steven@gmail.com'
+          className='focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray w-full h-[40px] rounded-[8px] border-[1px] border-[#DADCE0] mx-auto'
           onChange={(e) => setEmail(e.target.value)}
         />
-      </label>
+      </div>
       <PaymentElement />
       <button type="submit" disabled={!stripe} className='bg-[#1E1E1E] text-center flex justify-center items-center   w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]" '>
         Pay
