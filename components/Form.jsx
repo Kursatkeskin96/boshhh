@@ -310,6 +310,7 @@ export default function Form(props) {
       <select
         value={selectedTitle}
         onChange={handleTitleChange}
+        id="title"
         required
         className="lg:w-[90px] w-full h-[40px] pl-2 rounded-[5px] border-[1px] border-[#DADCE0]"
       >
