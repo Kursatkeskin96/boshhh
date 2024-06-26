@@ -52,6 +52,7 @@ export default function Form(props) {
   const handleTitleChange = (event) => {
     const value = event.target.value;
     setSelectedTitle(value);
+        setIsTitleValid(true);
     if (value !== 'Choose') {
       setOptions(options.filter(option => option !== 'Choose'));
     }
