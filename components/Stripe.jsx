@@ -78,6 +78,7 @@ const CheckoutForm = () => {
 };
 
 const PaymentPage = () => {
+  const [clientSecret, setClientSecret] = useState('');
   useEffect(() => {
     const createSetupIntent = async () => {
       const response = await fetch('https://app-admin-api-boshhh-prod-001.azurewebsites.net/api/Stripe/CreateSetupIntent', {
