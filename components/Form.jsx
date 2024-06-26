@@ -14,6 +14,7 @@ export default function Form(props) {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [email, setEmail] = useState("");
   const [options, setOptions] = useState(['Choose', 'Mr', 'Mrs', 'Ms']);
+  const [isTitleValid, setIsTitleValid] = useState(true)
   const [selectedTitle, setSelectedTitle] = useState('')
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -214,8 +215,8 @@ export default function Form(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (selectedTitle === 'Choose') {
-      alert("Please select a title.");
+    if (selectedTitle === 'Choose' || !selectedTitle) {
+      setIsTitleValid(false);
       return;
     }
     const data = {
@@ -312,7 +313,9 @@ export default function Form(props) {
         onChange={handleTitleChange}
         id="title"
         required
-        className="lg:w-[90px] w-full h-[40px] pl-2 rounded-[5px] border-[1px] border-[#DADCE0]"
+        className={`lg:w-[90px] w-full h-[40px] pl-2 rounded-[5px] border-[1px] ${
+          isTitleValid ? "border-[#DADCE0]" : "border-red-500"
+        }`}
       >
         {options.map((option) => (
           <option key={option} value={option}>
