@@ -80,7 +80,7 @@ const PaymentPage = () => {
           'Content-Type': 'application/json',
           'accept': 'text/plain'
         },
-        body: JSON.stringify({ email: 'test@example.com' })  // Adjust the request payload as needed
+        body: JSON.stringify({ email: '', amount: 0 })  // Adjust the request payload as needed
       });
 
       const data = await response.json();
