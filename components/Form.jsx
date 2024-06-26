@@ -25,6 +25,8 @@ export default function Form(props) {
     line1: "",
     line2: "",
   });
+  const [isLoading, setIsLoading] = useState(false)
+  const [buttonText, setButtonText] = useState('place order')
 
   const dayRef = useRef(null);
   const monthRef = useRef(null);
@@ -201,6 +203,8 @@ export default function Form(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setButtonText("loading...");
     const data = {
       title: "Mr",
       firstName: firstname,
@@ -239,6 +243,8 @@ export default function Form(props) {
       router.push(`/checkout?email=${encodeURIComponent(email)}`);
     } catch (error) {
       console.error("Error:", error);
+      setButtonText("place order");
+      setIsLoading(false);
     }
   };
 
@@ -485,7 +491,7 @@ export default function Form(props) {
             type="submit"
             className="bg-[#1E1E1E] flex justify-center items-center w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]"
           >
-           place order
+           {buttonText}
           </button>
       </form>
     </div>
