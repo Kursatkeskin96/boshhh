@@ -16,6 +16,7 @@ export default function Form(props) {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [phone, setPhone] = useState("");
+  const [loading, setLoading] = useState("false")
   const [dateOfBirth, setDateOfBirth] = useState({
     day: "",
     month: "",
@@ -201,7 +202,7 @@ export default function Form(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true)
     const data = {
       title: "Mr",
       firstName: firstname,
@@ -237,9 +238,11 @@ export default function Form(props) {
 
       const result = await response.json();
       console.log("Success:", result);
+      setLoading(false)
       router.push(`/checkout?email=${encodeURIComponent(email)}`);
     } catch (error) {
       console.error("Error:", error);
+      setLoading(false)
     }
   };
 
@@ -486,7 +489,7 @@ export default function Form(props) {
             type="submit"
             className="bg-[#1E1E1E] flex justify-center items-center w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]"
           >
-            place order
+           {loading ? "loading..." : 'place order'}
           </button>
       </form>
     </div>
