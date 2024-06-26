@@ -1,24 +1,39 @@
 'use client'
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, PaymentElement, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
-const CheckoutForm = ({ clientSecret }) => {
+const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [email, setEmail] = useState('');
+  const [amount, setAmount] = useState(0);
+  const [clientSecret, setClientSecret] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Call your backend to create a PaymentIntent
+    const response = await fetch('https://app-admin-api-boshhh-prod-001.azurewebsites.net/api/Stripe/CreatePaymentIntent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'accept': 'text/plain'
+      },
+      body: JSON.stringify({ amount, email })
+    });
+
+    const data = await response.json();
+    setClientSecret(data.clientSecret);
 
     if (!stripe || !elements) {
       return;
     }
 
-    // Confirm the SetupIntent with the client secret
-    const result = await stripe.confirmCardSetup(clientSecret, {
+    // Confirm the PaymentIntent with the client secret
+    const result = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),
         billing_details: {
@@ -30,8 +45,8 @@ const CheckoutForm = ({ clientSecret }) => {
     if (result.error) {
       console.log(result.error.message);
     } else {
-      if (result.setupIntent.status === 'succeeded') {
-        console.log('Setup successful!');
+      if (result.paymentIntent.status === 'succeeded') {
+        console.log('Payment successful!');
       }
     }
   };
@@ -55,35 +70,34 @@ const CheckoutForm = ({ clientSecret }) => {
 };
 
 const PaymentPage = () => {
-  const [clientSecret, setClientSecret] = useState('');
-  const [amount, setAmount] = useState(0); // Though it's 0, you might want to handle this dynamically.
-  const [email, setEmail] = useState('test@gmail.com');
+  const [clientSecret, setClientSecret] = useState("");
+  const [amount, setAmount] = useState(0)
+  const [email, SetEmail] = useState('test@gmail.com')
 
   useEffect(() => {
-    fetch('https://app-admin-api-boshhh-prod-001.azurewebsites.net/api/Stripe/CreateSetupIntent', {
+    fetch('https://app-admin-api-boshhh-prod-001.azurewebsites.net/api/Stripe/CreatePaymentIntent', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'accept': 'text/plain'
       },
-      body: JSON.stringify({ amount, email }), // Even though the amount is 0, include it if required by your backend.
+      body: JSON.stringify({ amount, email }),
     }).then(async (result) => {
-      const data = await result.json();
-      setClientSecret(data.clientSecret);
+      var { clientSecret } = await result.json();
+      setClientSecret(clientSecret);
     });
   }, []);
-
+  
   return (
     <>
-      <h1>React Stripe SetupIntent Example</h1>
-      {clientSecret && (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <CheckoutForm clientSecret={clientSecret} />
-        </Elements>
-      )}
-    </>
+    <h1>React Stripe and the Payment Element</h1>
+    {clientSecret &&  (
+      <Elements stripe={stripePromise} options={{ clientSecret }}>
+        <CheckoutForm />
+      </Elements>
+    )}
+  </>
   );
 };
 
 export default PaymentPage;
-

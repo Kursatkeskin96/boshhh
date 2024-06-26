@@ -1,44 +1,42 @@
-'use client';
-
-import { useState, useEffect } from 'react';
+'use client'
+import { useEffect, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
-import CheckoutForm from './CheckoutForm'; // Adjust the path if necessary
+import { Elements, PaymentElement, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import CheckOutForm from './Stripe'
+import CheckoutForm from './Stripe';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 const PaymentPage = () => {
-  const [clientSecret, setClientSecret] = useState('');
-
-  useEffect(() => {
-    const createSetupIntent = async () => {
-      const response = await fetch('https://app-admin-api-boshhh-prod-001.azurewebsites.net/api/Stripe/CreateSetupIntent', {
+    const stripe = useStripe();
+    const [clientSecret, setClientSecret] = useState("");
+    const [amount, setAmount] = useState(0)
+    const [email, SetEmail] = useState('test@gmail.com')
+  
+    useEffect(() => {
+      fetch('https://app-admin-api-boshhh-prod-001.azurewebsites.net/api/Stripe/CreatePaymentIntent', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'accept': 'text/plain'
         },
-        body: JSON.stringify({ email: '', amount: 0 }) // Adjust the request payload as needed
+        body: JSON.stringify({ amount, email }),
+      }).then(async (result) => {
+        var { clientSecret } = await result.json();
+        setClientSecret(clientSecret);
       });
-
-      const data = await response.json();
-      setClientSecret(data.clientSecret);
-    };
-
-    createSetupIntent();
-  }, []);
-
-  return (
-    <div>
-      {clientSecret ? (
+    }, []);
+    
+    return (
+      <>
+      <h1>React Stripe and the Payment Element</h1>
+      {clientSecret &&  (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <CheckoutForm clientSecret={clientSecret} />
+          <CheckoutForm />
         </Elements>
-      ) : (
-        <div>Loading...</div>
       )}
-    </div>
-  );
-};
+    </>
+    );
+  };
 
-export default PaymentPage;
+  export default PaymentPage;
