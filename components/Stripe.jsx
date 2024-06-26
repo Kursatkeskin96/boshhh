@@ -18,11 +18,10 @@ const CheckoutForm = ({ clientSecret }) => {
       return;
     }
 
-    // Confirm the PaymentIntent with the client secret
-    const result = await stripe.confirmPayment({
+    const result = await stripe.confirmSetup({
       elements,
       confirmParams: {
-        return_url: 'https://your-website.com/order-confirmation',
+        return_url: 'https://your-website.com/setup-confirmation',
         payment_method_data: {
           billing_details: {
             email: email,
@@ -34,8 +33,8 @@ const CheckoutForm = ({ clientSecret }) => {
     if (result.error) {
       console.log(result.error.message);
     } else {
-      if (result.paymentIntent.status === 'succeeded') {
-        console.log('Payment successful!');
+      if (result.setupIntent.status === 'succeeded') {
+        console.log('Setup successful!');
       }
     }
   };
@@ -53,7 +52,7 @@ const CheckoutForm = ({ clientSecret }) => {
       </label>
       <PaymentElement />
       <button type="submit" disabled={!stripe} className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:bg-gray-400 mt-4">
-        Pay
+        Save Payment Method
       </button>
     </form>
   );
@@ -63,22 +62,21 @@ const PaymentPage = () => {
   const [clientSecret, setClientSecret] = useState('');
 
   useEffect(() => {
-    // Fetch the PaymentIntent client secret as soon as the page loads
-    const createPaymentIntent = async () => {
-      const response = await fetch('https://app-admin-api-boshhh-prod-001.azurewebsites.net/api/Stripe/CreatePaymentIntent', {
+    const createSetupIntent = async () => {
+      const response = await fetch('https://app-admin-api-boshhh-prod-001.azurewebsites.net/api/Stripe/CreateSetupIntent', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'accept': 'text/plain'
         },
-        body: JSON.stringify({ amount: 0, email: '' })  // Adjust the request payload as needed
+        body: JSON.stringify({ email: 'test@example.com' })  // Adjust the request payload as needed
       });
 
       const data = await response.json();
       setClientSecret(data.clientSecret);
     };
 
-    createPaymentIntent();
+    createSetupIntent();
   }, []);
 
   return (
