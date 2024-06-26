@@ -66,7 +66,7 @@ const CheckoutForm = () => {
   };
 
   return (
-    <div className='max-w-[490px] flex justify-center items-center mx-auto'>
+    <div className='max-w-[440px] flex justify-center items-center mx-auto'>
         <form onSubmit={handleSubmit} className='w-[100%]'>
       <PaymentElement />
       <button type="submit" disabled={!stripe} className='bg-[#1E1E1E] text-center flex justify-center items-center w-[100%] max-w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-xl'>
