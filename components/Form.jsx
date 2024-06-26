@@ -254,7 +254,8 @@ export default function Form(props) {
       }
 
       const result = await response.json();
-      console.log("Success:", result);
+      setIsTitleValid(true)
+    
       router.push(`/checkout?email=${encodeURIComponent(email)}`);
     } catch (error) {
       console.error("Error:", error);
