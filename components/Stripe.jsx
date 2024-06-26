@@ -15,6 +15,22 @@ const CheckoutForm = () => {
   const [amount, setAmount] = useState(0);
   const [clientSecret, setClientSecret] = useState('');
 
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const emailParam = queryParams.get('email');
+    const postcodeParam = queryParams.get('postcode');
+
+    if (emailParam) {
+      setEmail(emailParam);
+    }
+
+    if (postcodeParam) {
+      setPostcode(postcodeParam);
+    }
+  }, []);
+
+  console.log(email)
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -57,18 +73,6 @@ const CheckoutForm = () => {
   return (
     <div className='max-w-[490px] flex justify-center items-center mx-auto'>
         <form onSubmit={handleSubmit} className='w-[100%]'>
-      <div className='flex flex-col'>
-      <label className='text-sm'>
-        Email
-        </label>
-        <input
-          type="email"
-          value={email}
-          placeholder='steven@gmail.com'
-          className='focus:border-[#0048ff] px-[12px] mb-4 focus:ring-0 focus:outline-none placeholder-customGray w-full h-[40px] rounded-[5px] border-[1px] border-[#DADCE0] mx-auto'
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
       <PaymentElement />
       <button type="submit" disabled={!stripe} className='bg-[#1E1E1E] text-center flex justify-center items-center w-[100%] max-w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-xl'>
         Pay
