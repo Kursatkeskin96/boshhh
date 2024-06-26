@@ -16,7 +16,8 @@ module.exports = {
         customGray: "#BDC1C6",
       },
       screens: {
-        md: "375px", // Set the sm breakpoint to 425px
+        md: "440px",
+        xs: "360px"// Set the sm breakpoint to 425px
       },
     },
   },
