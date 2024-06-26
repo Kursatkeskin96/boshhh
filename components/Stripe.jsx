@@ -1,21 +1,17 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Elements, PaymentElement, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 const CheckoutForm = () => {
 
-  const searchParams = useSearchParams()
-  console.log(searchParams)
-  const emailparam = searchParams.get('email')
   const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
-  const emailFromQuery = router.query.email ? decodeURIComponent(router.query.email) : '';
-  const [email, setEmail] = useState(emailparam || ''); 
+  const [email, setEmail] = useState(''); 
   const [amount, setAmount] = useState(0);
   const [clientSecret, setClientSecret] = useState('');
 
