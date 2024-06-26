@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { CiMail } from "react-icons/ci";
 import { MdLocalPhone } from "react-icons/md";
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 export default function Form(props) {
   const [isPostcodeValid, setIsPostcodeValid] = useState(true);
@@ -29,7 +30,7 @@ export default function Form(props) {
   const monthRef = useRef(null);
   const yearRef = useRef(null);
   const dropdownRef = useRef(null);
-
+  const router = useRouter();
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
