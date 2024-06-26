@@ -6,7 +6,7 @@ import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
-const CheckoutForm = ({ clientSecret }) => {
+export default CheckoutForm = ({ clientSecret }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [email, setEmail] = useState('');
@@ -83,13 +83,11 @@ const PaymentPage = () => {
     <div>
       {clientSecret ? (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <CheckoutForm clientSecret={clientSecret} />
+          <PaymentPage clientSecret={clientSecret} />
         </Elements>
       ) : (
         <div>Loading...</div>
       )}
     </div>
   );
-};
-
-export default PaymentPage;
+}
