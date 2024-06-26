@@ -26,7 +26,7 @@ export default function Form(props) {
     line2: "",
   });
   const [isLoading, setIsLoading] = useState(false)
-  const [buttonText, setButtonText] = useState('place order')
+  const [buttonText, setButtonText] = useState('next')
 
   const dayRef = useRef(null);
   const monthRef = useRef(null);

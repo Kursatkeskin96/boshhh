@@ -70,7 +70,7 @@ const CheckoutForm = () => {
         <form onSubmit={handleSubmit} className='w-[100%]'>
       <PaymentElement />
       <button type="submit" disabled={!stripe} className='bg-[#1E1E1E] text-center flex justify-center items-center w-[100%] max-w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]'>
-        pay
+        place order
       </button>
     </form>
     </div>
