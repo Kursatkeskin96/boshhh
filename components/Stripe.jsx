@@ -6,12 +6,14 @@ import { Elements, PaymentElement, CardElement, useStripe, useElements } from '@
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ searchParams }) => {
+  console.log(searchParams)
+  const emailparam = searchParams.get('email')
   const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
   const emailFromQuery = router.query.email ? decodeURIComponent(router.query.email) : '';
-  const [email, setEmail] = useState(emailFromQuery || ''); 
+  const [email, setEmail] = useState(emailparam || ''); 
   const [amount, setAmount] = useState(0);
   const [clientSecret, setClientSecret] = useState('');
 
