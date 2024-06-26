@@ -236,6 +236,7 @@ export default function Form(props) {
 
       const result = await response.json();
       console.log("Success:", result);
+      router.push(`/checkout?email=${encodeURIComponent(email)}`);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -297,7 +298,7 @@ export default function Form(props) {
                 value={firstname}
                 required
                 placeholder="David"
-                className=" w-[100%] focus:border-[#0048ff] focus:ring-0 focus:outline-none pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0] placeholder-customGray"
+                className=" w-[100%] focus:border-[#0048ff] focus:ring-0 focus:outline-none pl-2 h-[40px] rounded-[5px] border-[1px] border-[#DADCE0] placeholder-customGray"
               />
             </div>
           </div>
@@ -316,7 +317,7 @@ export default function Form(props) {
                 value={lastname}
                 required
                 placeholder="Smith"
-                className="w-full pl-2 h-[40px] focus:border-[#0048ff] focus:ring-0 focus:outline-none rounded-[8px] border-[1px] border-[#DADCE0] placeholder-customGray"
+                className="w-full pl-2 h-[40px] focus:border-[#0048ff] focus:ring-0 focus:outline-none rounded-[5px] border-[1px] border-[#DADCE0] placeholder-customGray"
               />
             </div>
           </div>
@@ -334,7 +335,7 @@ export default function Form(props) {
               <CiMail className="absolute text-[#80868B] top-[50%] text-xl left-[10px] translate-y-[-50%] pointer-events-none" />
               <input
                 required
-                className={`pl-10 focus:border-[#0048ff] focus:ring-0 focus:outline-none w-full placeholder-customGray h-[40px] rounded-[8px] border-[1px] ${
+                className={`pl-10 focus:border-[#0048ff] focus:ring-0 focus:outline-none w-full placeholder-customGray h-[40px] rounded-[5px] border-[1px] ${
                   isEmailValid ? "border-[#DADCE0]" : "border-red-500"
                 } mx-auto`}
                 type="email"
@@ -349,7 +350,7 @@ export default function Form(props) {
             <div className="relative w-[90%] lg:w-full flex justify-center mt-4">
               <MdLocalPhone className="absolute text-[#80868B] top-[50%] text-xl left-[10px] translate-y-[-50%] pointer-events-none" />
               <input
-                className="pl-10 focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray w-full h-[40px] rounded-[8px] border-[1px] border-[#DADCE0] mx-auto"
+                className="pl-10 focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray w-full h-[40px] rounded-[5px] border-[1px] border-[#DADCE0] mx-auto"
                 type="number"
                 required
                 id="contact-phone"
@@ -378,7 +379,7 @@ export default function Form(props) {
               onChange={handleDayInputChange}
               max="31"
               placeholder="DD"
-              className="w-[32%] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray lg:w-[170px] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
+              className="w-[32%] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray lg:w-[170px] pl-2 h-[40px] rounded-[5px] border-[1px] border-[#DADCE0]"
             />
             <input
               type="number"
@@ -387,7 +388,7 @@ export default function Form(props) {
               required
               onChange={handleMonthInputChange}
               placeholder="MM"
-              className="w-[32%] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray lg:w-[170px] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
+              className="w-[32%] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray lg:w-[170px] pl-2 h-[40px] rounded-[5px] border-[1px] border-[#DADCE0]"
             />
             <input
               type="number"
@@ -396,7 +397,7 @@ export default function Form(props) {
               ref={yearRef}
               onChange={handleYearInputChange}
               placeholder="YYYY"
-              className="w-[32%] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray lg:w-[170px] pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
+              className="w-[32%] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray lg:w-[170px] pl-2 h-[40px] rounded-[5px] border-[1px] border-[#DADCE0]"
             />
           </div>
         </div>
@@ -417,7 +418,7 @@ export default function Form(props) {
                   value={postcode}
                   onChange={(e) => setPostcode(e.target.value)}
                   placeholder="SK17 9AE"
-                  className={`max-w-[404px] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray w-[100%] md:w-[350px] lg:w-[380px] pl-2 h-[40px] rounded-[8px] border-[1px] ${
+                  className={`max-w-[404px] focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray w-[100%] md:w-[350px] lg:w-[380px] pl-2 h-[40px] rounded-[5px] border-[1px] ${
                     isPostcodeValid ? "border-[#DADCE0]" : "border-red-500"
                   }`}
                 />
@@ -464,7 +465,7 @@ export default function Form(props) {
                 value={selectedAddress.line1}
                 onChange={handleAddressChange}
                 placeholder="48 Crowestones"
-                className="w-full focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0]"
+                className="w-full focus:border-[#0048ff] focus:ring-0 focus:outline-none placeholder-customGray pl-2 h-[40px] rounded-[5px] border-[1px] border-[#DADCE0]"
               />
             </div>
             <div className="w-[90%] lg:w-[526px] my-2 flex flex-col items-start">
@@ -474,20 +475,18 @@ export default function Form(props) {
                 value={selectedAddress.line2}
                 onChange={handleAddressChange}
                 placeholder="Buxton/Derbyshire"
-                className="w-full pl-2 focus:border-[#0048ff] focus:ring-0 focus:outline-none h-[40px] placeholder-customGray rounded-[8px] border-[1px] border-[#DADCE0]"
+                className="w-full pl-2 focus:border-[#0048ff] focus:ring-0 focus:outline-none h-[40px] placeholder-customGray rounded-[5px] border-[1px] border-[#DADCE0]"
               />
             </div>
           </div>
         )}
 
-        <Link className="bg-[#1E1E1E] flex justify-center items-center w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]" href={`/checkout?${queryString}`}>
           <button
             type="submit"
-            className="w-full"
+            className="bg-[#1E1E1E] flex justify-center items-center w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]"
           >
             place order
           </button>
-        </Link>
       </form>
     </div>
   );
