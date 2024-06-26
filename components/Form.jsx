@@ -240,45 +240,6 @@ export default function Form(props) {
       console.error("Error:", error);
     }
   };
-
-  const updateURLParams = () => {
-    const url = new URL(window.location);
-    const params = {};
-
-    const addParam = (key, value) => {
-      if (value) {
-        // Remove leading and trailing whitespace and replace remaining spaces
-        const sanitizedValue = value.trim().replace(/\s+/g, '');
-        params[key] = encodeURIComponent(sanitizedValue);
-      }
-    };
-
-    addParam("checkout[shipping_address][first_name]", firstname);
-    addParam("checkout[shipping_address][last_name]", lastname);
-    addParam("checkout[email]", email);
-    addParam("checkout[shipping_address][postcode]", postcode);
-    addParam("checkout[shipping_address][address1]", selectedAddress.line1);
-    addParam("checkout[shipping_address][city]", selectedAddress.line2.split(' - ')[0]);
-
-    let queryString = Object.keys(params)
-      .map(key => `${key}=${params[key]}`)
-      .join('&');
-
-    // Replace encoded '@' with '@' for readability
-    queryString = queryString.replace(/%40/g, '@');
-
-    const newUrl = `${url.origin}${url.pathname}?${queryString}`;
-    window.history.replaceState({}, '', newUrl);
-    return queryString;
-  };
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      updateURLParams();
-    }
-  }, [firstname, lastname, email, postcode, selectedAddress]);
-
-  const queryString = typeof window !== "undefined" ? updateURLParams() : "";
   
   return (
     <div className="flex justify-center items-center flex-col max-w-[586px] h-fit mx-auto">
@@ -485,7 +446,10 @@ export default function Form(props) {
           </div>
         )}
 
-        <Link className="bg-[#1E1E1E] flex justify-center items-center   w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]" href='/checkout'>
+<Link
+  className="bg-[#1E1E1E] flex justify-center items-center w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]"
+  href={`/checkout?email=${encodeURIComponent(email)}`}
+>
           <button
             type="submit"
             className="w-full"

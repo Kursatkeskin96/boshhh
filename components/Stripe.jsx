@@ -8,7 +8,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(router.query.email || ''); 
   const [amount, setAmount] = useState(0);
   const [clientSecret, setClientSecret] = useState('');
 
@@ -52,7 +52,7 @@ const CheckoutForm = () => {
   };
 
   return (
-    <div className='max-w-[586px] flex justify-center items-center mx-auto'>
+    <div className='max-w-[526px] flex justify-center items-center mx-auto'>
         <form onSubmit={handleSubmit} className='w-[100%]'>
       <div className='flex flex-col'>
       <label className='text-sm'>
