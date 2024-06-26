@@ -11,8 +11,7 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const emailFromQuery = router.query.email ? decodeURIComponent(router.query.email) : '';
-  const formattedEmail = emailFromQuery.replace(/%40/g, '@');
-  const [email, setEmail] = useState(formattedEmail || ''); 
+  const [email, setEmail] = useState(emailFromQuery || ''); 
   const [amount, setAmount] = useState(0);
   const [clientSecret, setClientSecret] = useState('');
 
