@@ -13,9 +13,6 @@ export default function Form(props) {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [email, setEmail] = useState("");
-  const [options, setOptions] = useState(['Choose', 'Mr', 'Mrs', 'Ms']);
-  const [isTitleValid, setIsTitleValid] = useState(true)
-  const [selectedTitle, setSelectedTitle] = useState('')
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [phone, setPhone] = useState("");
@@ -49,14 +46,6 @@ export default function Form(props) {
     };
   }, [dropdownRef]);
 
-  const handleTitleChange = (event) => {
-    const value = event.target.value;
-    setSelectedTitle(value);
-        setIsTitleValid(true);
-    if (value !== 'Choose') {
-      setOptions(options.filter(option => option !== 'Choose'));
-    }
-  };
 
   const handleSearchClick = async () => {
     try {
@@ -216,12 +205,8 @@ export default function Form(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (selectedTitle === 'Choose' || !selectedTitle) {
-      setIsTitleValid(false);
-      return;
-    }
     const data = {
-      title: selectedTitle,
+      title: "Mr",
       firstName: firstname,
       lastName: lastname,
       dateOfBirth: formattedDateOfBirth,
@@ -254,7 +239,6 @@ export default function Form(props) {
       }
 
       const result = await response.json();
-      setIsTitleValid(true)
     
       router.push(`/checkout?email=${encodeURIComponent(email)}`);
     } catch (error) {
@@ -304,66 +288,46 @@ export default function Form(props) {
       className="flex flex-col justify-center items-center"
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col w-[90%] lg:w-full justify-center items-center">
-        <div className="w-[100%] max-w-[526px] flex flex-wrap lg:flex-nowrap items-start gap-2">
-          <div className="w-[90px] md-[w-90px] lg:w-[100px] flex flex-col items-start">
-            <label htmlFor="title" className="text-[#5F6368] text-[15px] font-normal">
-              Title
-            </label>
-      <select
-        value={selectedTitle}
-        onChange={handleTitleChange}
-        id="title"
-        required
-        className={`lg:w-[90px] w-full h-[40px] pl-2 rounded-[5px] border-[1px] ${
-          isTitleValid ? "border-[#DADCE0]" : "border-red-500"
-        }`}
-      >
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-    </div>
-
-    <div className="md:w-[78%] w-[72%] xs:w-[67%] lg:w-full flex flex-col items-start">
-      <label
-        htmlFor="firstname"
-        className="text-[#5F6368] text-[15px] font-normal"
-      >
-        First name *
-      </label>
-      <input
-        type="text"
-        id="firstname"
-        onChange={handleFirstName}
-        value={firstname}
-        required
-        placeholder="David"
-        className="w-full pl-2 h-[40px] focus:border-[#0048ff] focus:ring-0 focus:outline-none rounded-[5px] border-[1px] border-[#DADCE0] placeholder-customGray"
-      />
-    </div>
-
-    <div className="w-full flex flex-col items-start">
-      <label
-        htmlFor="lastname"
-        className="text-[#5F6368] text-[15px] font-normal"
-      >
-        Last name *{" "}
-      </label>
-      <input
-        type="text"
-        id="lastname"
-        onChange={handleLastName}
-        value={lastname}
-        required
-        placeholder="Smith"
-        className="w-full pl-2 h-[40px] focus:border-[#0048ff] focus:ring-0 focus:outline-none rounded-[5px] border-[1px] border-[#DADCE0] placeholder-customGray"
-      />
-    </div>
-  </div>
-</div>
+            <div className="flex flex-col gap-2 px-5 md:flex-row justify-center items-center w-full lg:max-w-[526px] mx-auto">
+          <div className="flex flex-col w-full justify-center items-center">
+            <div className="w-[100%] lg:w-[250px] flex flex-col items-start">
+              <label
+                htmlFor="firstname"
+                className="text-[#5F6368] text-[15px] font-normal"
+              >
+                First name *{" "}
+              </label>
+              <input
+                type="text"
+                id="firstname"
+                onChange={handleFirstName}
+                value={firstname}
+                required
+                placeholder="David"
+                className=" w-[100%] focus:border-[#0048ff] focus:ring-0 focus:outline-none pl-2 h-[40px] rounded-[8px] border-[1px] border-[#DADCE0] placeholder-customGray"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col w-full justify-center items-center">
+            <div className="w-[100%] lg:w-[250px] flex flex-col items-start">
+              <label
+                htmlFor="lastname"
+                className="text-[#5F6368] text-[15px] font-normal"
+              >
+                Last name *{" "}
+              </label>
+              <input
+                type="text"
+                id="lastname"
+                onChange={handleLastName}
+                value={lastname}
+                required
+                placeholder="Smith"
+                className="w-full pl-2 h-[40px] focus:border-[#0048ff] focus:ring-0 focus:outline-none rounded-[8px] border-[1px] border-[#DADCE0] placeholder-customGray"
+              />
+            </div>
+          </div>
+        </div>
 
         <div className="flex flex-col max-w-[526px] mt-4 mb-4 w-full mx-auto">
           <label
