@@ -55,7 +55,7 @@ const CheckoutForm = () => {
   };
 
   return (
-    <div className='max-w-[526px] flex justify-center items-center mx-auto'>
+    <div className='max-w-[490px] flex justify-center items-center mx-auto'>
         <form onSubmit={handleSubmit} className='w-[100%]'>
       <div className='flex flex-col'>
       <label className='text-sm'>
