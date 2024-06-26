@@ -71,7 +71,7 @@ const PaymentPage = () => {
       const data = await result.json();
       setClientSecret(data.clientSecret);
     });
-  }, [amount, email]);
+  }, []);
 
   return (
     <>
