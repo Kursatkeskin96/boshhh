@@ -4,9 +4,6 @@ import { CiMail } from "react-icons/ci";
 import { MdLocalPhone } from "react-icons/md";
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
-import { Spinner } from "reactstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 export default function Form(props) {
   const [isPostcodeValid, setIsPostcodeValid] = useState(true);
@@ -489,26 +486,13 @@ export default function Form(props) {
             </div>
           </div>
         )}
-{isLoading ? (
-            <button
+
+          <button
             type="submit"
             className="bg-[#1E1E1E] flex justify-center items-center w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]"
           >
-           <Spinner
-  className="m-2"
-  color="light"
-  size="sm"
->
-</Spinner> loading...
+           {buttonText}
           </button>
-) : (
-  <button
-  type="submit"
-  className="bg-[#1E1E1E] flex justify-center items-center w-[90%] lg:w-[526px] h-[40px] py-15 pl-32 pr-24 mt-6 font-normal text-white rounded-[100px]"
->
-place order
-</button>
-)}
       </form>
     </div>
   );
